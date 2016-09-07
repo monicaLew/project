@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; UTF-8">
-<title>Insert title here</title>
+<title>DB is filled with the Excel</title>
 </head>
 <body>
 	<h2>DB is filled with the Excel</h2>

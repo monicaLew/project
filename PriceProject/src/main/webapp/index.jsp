@@ -26,12 +26,17 @@
 	<form action="ScanCarPage" method="post">
 		<p>
 			<b>ID from:</b><br> <input type="text" name="idFrom" size="40" />
-			<validation:fieldError errorCode="idFrom.null.error">
+			<validation:fieldError errorCode="idFrom.negative.error">
 				&emsp;
 				<span style="color: red;">${fieldErrorText}</span>
 			</validation:fieldError>
 
-			<validation:fieldError errorCode="idFrom.negative.error">
+			<validation:fieldError errorCode="idFrom.less.error">
+				&emsp;
+				<span style="color: red;">${fieldErrorText}</span>
+			</validation:fieldError>
+
+			<validation:fieldError errorCode="idFrom.text.error">
 				&emsp;
 				<span style="color: red;">${fieldErrorText}</span>
 			</validation:fieldError>
@@ -39,12 +44,17 @@
 		<br />
 		<p>
 			<b>ID till:</b><br> <input type="text" name="idTill" size="40" />
-			<validation:fieldError errorCode="idTill.null.error">
+			<validation:fieldError errorCode="idTill.negative.error">
 				&emsp;
 				<span style="color: red;">${fieldErrorText}</span>
 			</validation:fieldError>
 
-			<validation:fieldError errorCode="idTill.negative.error">
+			<validation:fieldError errorCode="idTill.bigger.error">
+				&emsp;
+				<span style="color: red;">${fieldErrorText}</span>
+			</validation:fieldError>
+
+			<validation:fieldError errorCode="idTill.text.error">
 				&emsp;
 				<span style="color: red;">${fieldErrorText}</span>
 			</validation:fieldError>

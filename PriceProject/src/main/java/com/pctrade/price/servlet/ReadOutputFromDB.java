@@ -15,9 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.pctrade.price.dao.DaoProduct;
 import com.pctrade.price.dao.DaoProductImpl;
 import com.pctrade.price.entity.Product;
+import com.pctrade.price.utils.HttpUtils;
 
 public class ReadOutputFromDB extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String FORWARD_NAME = "/output.jsp";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -34,7 +36,7 @@ public class ReadOutputFromDB extends HttpServlet {
 		DaoProduct daoProduct = new DaoProductImpl();
 		List<Product> productsList = daoProduct.showAllProductList();
 
-		File file = new File("C:\\priceList.txt");
+		File file = new File("C:\\Users\\Monika\\Desktop\\priceList.txt"); // \\Документы\
 		FileWriter fileWriter = new FileWriter(file);
 		Writer writer = new BufferedWriter(fileWriter);
 
@@ -42,8 +44,6 @@ public class ReadOutputFromDB extends HttpServlet {
 			writer.write(product.toString() + System.getProperty("line.separator"));
 		}
 		writer.close();
-
-		request.getRequestDispatcher("/output.jsp").forward(request, response);
-
+		HttpUtils.forward(FORWARD_NAME, request, response);
 	}
 }

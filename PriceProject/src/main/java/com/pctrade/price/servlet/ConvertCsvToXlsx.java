@@ -27,9 +27,11 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.opencsv.CSVReader;
+import com.pctrade.price.utils.HttpUtils;
 
 public class ConvertCsvToXlsx extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String ERROR_NAME = "/errorPage.jsp";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -45,7 +47,10 @@ public class ConvertCsvToXlsx extends HttpServlet {
 		HttpSession session = request.getSession();
 		try {
 			@SuppressWarnings("resource")
-			InputStream filecontent = new FileInputStream("C:\\priceList.txt");
+			InputStream filecontent = new FileInputStream("C:\\Users\\Monika\\Desktop\\priceList.txt"); // как
+																										// сделать
+																										// универсальный
+																										// путь
 
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			List<FileItem> items = new ServletFileUpload(factory).parseRequest(request);
@@ -111,16 +116,10 @@ public class ConvertCsvToXlsx extends HttpServlet {
 				workBookXlsx.write(out);
 			}
 		} catch (Exception e) {
-			session.setAttribute("exception", "Convert fail: " + e);
-			String encodingURL = response.encodeRedirectURL("/errorPage.jsp");
-			request.getRequestDispatcher(encodingURL).forward(request, response);
+			session.setAttribute("exception", "Transformation fail: " + e);
+			HttpUtils.forward(ERROR_NAME, request, response);
 		} finally {
 			out.close();
 		}
-		String encodingURL = response.encodeRedirectURL("/index.jsp"); // никуда
-																		// не
-																		// хочет
-																		// идти
-		request.getRequestDispatcher(encodingURL).forward(request, response);
 	}
 }

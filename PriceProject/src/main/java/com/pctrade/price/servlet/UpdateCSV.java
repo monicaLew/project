@@ -11,9 +11,11 @@ import javax.servlet.http.HttpSession;
 import com.pctrade.price.dao.DaoProduct;
 import com.pctrade.price.dao.DaoProductImpl;
 import com.pctrade.price.readers.ReadCsv;
+import com.pctrade.price.utils.HttpUtils;
 
 public class UpdateCSV extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String FORWARD_NAME = "/result.jsp";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -40,7 +42,6 @@ public class UpdateCSV extends HttpServlet {
 			String encodingURL = response.encodeRedirectURL("/errorPage.jsp");
 			request.getRequestDispatcher(encodingURL).forward(request, response);
 		}
-		String encodeURL = response.encodeURL("/result.jsp");
-		request.getRequestDispatcher(encodeURL).forward(request, response);
+		HttpUtils.forward(FORWARD_NAME, request, response);		
 	}
 }

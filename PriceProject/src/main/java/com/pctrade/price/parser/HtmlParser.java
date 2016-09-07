@@ -41,8 +41,7 @@ public class HtmlParser {
 			car.setYear(year);
 			car.setStatus("AVAILABLE");
 
-		} catch (HttpStatusException e) { // надо ли созд новый или в выше
-											// созданный car ?
+		} catch (HttpStatusException e) {
 			car.setPageCode(idPage);
 			car.setArticle(null);
 			car.setPriceByn(0.0);
@@ -56,7 +55,7 @@ public class HtmlParser {
 			car.setPriceByn(0.0);
 			car.setPriceEuro(0);
 			car.setYear(0);
-			car.setStatus("NOT_AVAILABLE_SOME_INET_PROBLEM");
+			car.setStatus("NOT_DOWNLOAD_SOME_INET_PROBLEM");
 			return car;
 		} catch (NumberFormatException ex) {
 			car.setPageCode(idPage);
@@ -68,14 +67,13 @@ public class HtmlParser {
 			return car;
 		} catch (NullPointerException e) {
 			car.setPageCode(idPage);
-			car.setArticle("NULL");
+			car.setArticle(null);
 			car.setPriceByn(0.0);
 			car.setPriceEuro(0);
 			car.setYear(0);
 			car.setStatus("PAGE_NOT_VALID");
 			return car;
 		} catch (Exception ex) {
-			System.out.println("***** ******  ****  *****" + ex.getMessage());
 			return null;
 		}
 		return car;

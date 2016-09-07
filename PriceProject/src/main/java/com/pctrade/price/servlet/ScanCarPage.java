@@ -23,19 +23,22 @@ public class ScanCarPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String urlBase = "http://www.abw.by/allpublic/sell/";
 
-	public static final String FROM_NULL_ERROR_CODE = "idFrom.null.error";
+	public static final String FROM_TEXT_ERROR_CODE = "idFrom.text.error";
 	public static final String FROM_NEGATIVE_ERROR_CODE = "idFrom.negative.error";
-	public static final String TILL_NULL_ERROR_CODE = "idTill.null.error";
+	public static final String TILL_TEXT_ERROR_CODE = "idTill.text.error";
 	public static final String TILL_NEGATIVE_ERROR_CODE = "idTill.negative.error";
+	public static final String FROM_LESS_ERROR_CODE = "idFrom.less.error";
+	public static final String TILL_BIGGER_ERROR_CODE = "idTill.bigger.error";
 
-	private static final String FROM_NULL_ERROR_TEXT = "ID 'From' can not be null";
 	private static final String FROM_NEGATIVE_ERROR_TEXT = "ID 'From' must be greater than 0";
-	private static final String TILL_NULL_ERROR_TEXT = "ID 'Till' can not be null";
 	private static final String TILL_NEGATIVE_ERROR_TEXT = "ID 'Till' must be greater than 0";
+	private static final String FROM_TEXT_ERROR_TEXT = "Please input correct value";
+	private static final String TILL_TEXT_ERROR_TEXT = "Please input correct value";
+	private static final String FROM_LESS_ERROR_TEXT = "ID 'From' must be less than 'Till'";
+	private static final String TILL_BIGGER_ERROR_TEXT = "ID 'Till' must be bigger than 'From'";
 
 	private static final String SUCCESS_VIEW_NAME = "/inputCars.jsp";
-	private static final String INPUT_VIEW_NAME = "index.jsp";
-	private static final String FAIL_VIEW_NAME = "/errorPageP.jsp";
+	private static final String INPUT_VIEW_NAME = "index.jsp";	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -52,10 +55,7 @@ public class ScanCarPage extends HttpServlet {
 		}
 		Integer idFrom = HttpUtils.getIntParam(request, "idFrom");
 		Integer idTill = HttpUtils.getIntParam(request, "idTill");
-
-		if (idFrom > idTill || idFrom <= 0 || idTill <= 0) {
-			HttpUtils.forward(FAIL_VIEW_NAME, request, response);
-		}
+		
 		DaoCar daoCar = new DaoCarImpl();
 		daoCar.clearTable();
 		while (idFrom <= idTill) {
@@ -75,7 +75,7 @@ public class ScanCarPage extends HttpServlet {
 		Map<String, String> errorMap = new HashMap<String, String>();
 
 		if (HttpUtils.isIntNull(request, "idFrom")) {
-			errorMap.put(FROM_NULL_ERROR_CODE, FROM_NULL_ERROR_TEXT);
+			errorMap.put(FROM_TEXT_ERROR_CODE, FROM_TEXT_ERROR_TEXT);
 		} else {
 			if (HttpUtils.isNegativeInt(request, "idFrom")) {
 				errorMap.put(FROM_NEGATIVE_ERROR_CODE, FROM_NEGATIVE_ERROR_TEXT);
@@ -83,11 +83,16 @@ public class ScanCarPage extends HttpServlet {
 		}
 
 		if (HttpUtils.isIntNull(request, "idTill")) {
-			errorMap.put(TILL_NULL_ERROR_CODE, TILL_NULL_ERROR_TEXT);
+			errorMap.put(TILL_TEXT_ERROR_CODE, TILL_TEXT_ERROR_TEXT);
 		} else {
 			if (HttpUtils.isNegativeInt(request, "idTill")) {
 				errorMap.put(TILL_NEGATIVE_ERROR_CODE, TILL_NEGATIVE_ERROR_TEXT);
 			}
+		}
+
+		if (HttpUtils.isFromBiggerThanTill(request, "idFrom", "idTill")) {
+			errorMap.put(FROM_LESS_ERROR_CODE, FROM_LESS_ERROR_TEXT);
+			errorMap.put(TILL_BIGGER_ERROR_CODE, TILL_BIGGER_ERROR_TEXT);
 		}
 
 		if (!errorMap.isEmpty()) {

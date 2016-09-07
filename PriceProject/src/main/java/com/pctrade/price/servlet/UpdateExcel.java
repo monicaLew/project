@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.pctrade.price.dao.DaoProduct;
 import com.pctrade.price.dao.DaoProductImpl;
 import com.pctrade.price.readers.ReadExcel;
+import com.pctrade.price.utils.HttpUtils;
 
 public class UpdateExcel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -22,7 +23,7 @@ public class UpdateExcel extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -37,10 +38,8 @@ public class UpdateExcel extends HttpServlet {
 
 		} catch (Exception e) {
 			session.setAttribute("exception", e);
-			String encodingURL = response.encodeRedirectURL("/errorPage.jsp");
-			request.getRequestDispatcher(encodingURL).forward(request, response);
+			HttpUtils.forward("/errorPage.jsp", request, response);
 		}
-		String encodeURL = response.encodeURL("/result.jsp");
-		request.getRequestDispatcher(encodeURL).forward(request, response);
+		HttpUtils.forward("/result.jsp", request, response);
 	}
 }

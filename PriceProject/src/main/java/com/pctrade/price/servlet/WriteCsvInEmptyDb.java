@@ -1,6 +1,5 @@
 package com.pctrade.price.servlet;
 
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -12,10 +11,12 @@ import javax.servlet.http.HttpSession;
 import com.pctrade.price.dao.DaoProduct;
 import com.pctrade.price.dao.DaoProductImpl;
 import com.pctrade.price.readers.ReadCsv;
-
+import com.pctrade.price.utils.HttpUtils;
 
 public class WriteCsvInEmptyDb extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String FORWARD_NAME = "/csvWrite.jsp";
+	private static final String ERROR_NAME = "/errorPage.jsp";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -30,20 +31,18 @@ public class WriteCsvInEmptyDb extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String uploadDate = (String) session.getAttribute("dateOfUpload");
-		
+
 		try {
-			DaoProduct daoProductImpl = new DaoProductImpl();			
-			
+			DaoProduct daoProductImpl = new DaoProductImpl();
+
 			String csvFile = getServletContext().getInitParameter("file-upload")
-					+ session.getAttribute("lastFileNameUpload");				
+					+ session.getAttribute("lastFileNameUpload");
 			daoProductImpl.createProductTable(ReadCsv.readCsvFillProtuct(csvFile, uploadDate));
-			
+
 		} catch (Exception e) {
 			session.setAttribute("exception", e);
-			String encodingURL = response.encodeRedirectURL("/errorPage.jsp");
-			request.getRequestDispatcher(encodingURL).forward(request, response);
-		}		
-		String encodingURL = response.encodeRedirectURL("/csvWrite.jsp");
-		request.getRequestDispatcher(encodingURL).forward(request, response);
+			HttpUtils.forward(ERROR_NAME, request, response);
+		}
+		HttpUtils.forward(FORWARD_NAME, request, response);
 	}
 }

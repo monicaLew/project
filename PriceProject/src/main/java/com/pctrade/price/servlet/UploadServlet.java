@@ -16,6 +16,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.pctrade.price.entity.UploadedFile;
+import com.pctrade.price.utils.HttpUtils;
 
 public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -32,7 +33,6 @@ public class UploadServlet extends HttpServlet {
 			throws ServletException, java.io.IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		// Check that we have a file upload request
 		try {
 			isMultipart = ServletFileUpload.isMultipartContent(request);
 			response.setContentType("text/html");
@@ -77,20 +77,17 @@ public class UploadServlet extends HttpServlet {
 					uploadedFileInfo.setSizeKb(sizeInKB);
 					uploadedFileInfo.setUploadDate(dOfUpload);
 					session.setAttribute("uploadedFileInfo", uploadedFileInfo);
-
-					String encodeURL = response.encodeURL("/lastUploadFile.jsp");
-					request.getRequestDispatcher(encodeURL).forward(request, response);
+					HttpUtils.forward("/lastUploadFile.jsp", request, response);
 				}
 			}
-		} catch (Exception ex) {			
+		} catch (Exception ex) {
 			session.setAttribute("exception", ex);
-			String encodingURL = response.encodeRedirectURL("/errorPage.jsp");
-			request.getRequestDispatcher(encodingURL).forward(request, response);
+			HttpUtils.forward("/errorPage.jsp", request, response);
 		}
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, java.io.IOException {		
+			throws ServletException, java.io.IOException {
 		throw new ServletException("GET method used with " + getClass().getName() + ": POST method required.");
 	}
 }

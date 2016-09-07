@@ -12,11 +12,13 @@ import javax.servlet.http.HttpSession;
 import com.pctrade.price.dao.DaoProduct;
 import com.pctrade.price.dao.DaoProductImpl;
 import com.pctrade.price.readers.ReadExcel;
+import com.pctrade.price.utils.HttpUtils;
 
 @WebServlet("/parse")
 public class WriteExcelInEmrtyDb extends HttpServlet {
-
 	private static final long serialVersionUID = 1L;
+	private static final String FORWARD_NAME = "/excelWrite.jsp";
+	private static final String ERROR_NAME = "/errorPage.jsp";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -35,11 +37,9 @@ public class WriteExcelInEmrtyDb extends HttpServlet {
 			daoProductImpl.createProductTable(ReadExcel.readExcelFillProduct(filePath, date));
 
 		} catch (Exception e) {
-			session.setAttribute("exception", e);
-			String encodingURL = response.encodeRedirectURL("/errorPage.jsp");
-			request.getRequestDispatcher(encodingURL).forward(request, response);
-		}
-		String encodeURL = response.encodeURL("/excelWrite.jsp");
-		request.getRequestDispatcher(encodeURL).forward(request, response);
+			session.setAttribute("exception", e);			
+			HttpUtils.forward(ERROR_NAME, request, response);
+		}		
+		HttpUtils.forward(FORWARD_NAME, request, response);
 	}
 }

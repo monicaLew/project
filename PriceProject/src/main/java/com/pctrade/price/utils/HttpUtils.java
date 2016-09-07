@@ -15,7 +15,8 @@ public final class HttpUtils {
 		throw new InstantiationError("No need instances for static content!");
 	}
 
-	public static void forward(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public static void forward(String url, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
 	}
@@ -35,6 +36,7 @@ public final class HttpUtils {
 			Integer intValue = new Integer(intStr);
 
 			return intValue;
+
 		} catch (Exception e) {
 			return null;
 		}
@@ -44,21 +46,30 @@ public final class HttpUtils {
 		Integer value = getIntParam(request, paramName);
 		return (value != null);
 	}
-	
+
 	public static boolean isIntNull(HttpServletRequest request, String paramName) {
 		return !isIntNotNull(request, paramName);
 	}
-	
+
 	public static boolean isPositiveInt(HttpServletRequest request, String paramName) {
 		if (isIntNull(request, paramName)) {
 			return false;
 		}
-
 		Integer value = getIntParam(request, paramName);
 		return (value > 0);
 	}
-	
+
 	public static boolean isNegativeInt(HttpServletRequest request, String paramName) {
 		return !isPositiveInt(request, paramName);
+	}
+
+	public static boolean isFromBiggerThanTill(HttpServletRequest request, String paramNameFrom, String paramNameTill) {
+		if (isIntNotNull(request, paramNameFrom) && isIntNotNull(request, paramNameTill)) {
+
+			return getIntParam(request, paramNameFrom) > getIntParam(request, paramNameTill);
+
+		} else {
+			return false;
+		}
 	}
 }

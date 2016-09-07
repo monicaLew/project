@@ -12,9 +12,7 @@ public class ReadCsv {
 	public static List<Product> readCsvFillProtuct(String filePath, String uploadDate)
 			throws NumberFormatException, IOException {
 
-		List<Product> productsList = new ArrayList<Product>();
-		System.out.println(" парам пам пам  !");			
-		
+		List<Product> productsList = new ArrayList<Product>();		
 		CSVReader reader = null;
 
 		reader = new CSVReader(new FileReader(filePath));

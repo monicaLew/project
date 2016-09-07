@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>DB is filled with the Csv</title>
 </head>
 <body>
 	<h1>DB is filled with the Csv</h1>
