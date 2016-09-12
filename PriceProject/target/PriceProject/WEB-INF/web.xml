@@ -8,7 +8,7 @@
 		<description>Location to store uploaded file</description>
 		<param-name>file-upload</param-name>
 		<param-value>
-    c:\MARINA\Soft\apache-tomcat-8.0.36\webapps\data\        
+    c:\Marusia\Soft\apache-tomcat-8.0.36\webapps\data\         
      </param-value>
 	</context-param>
 	<servlet>
@@ -18,9 +18,9 @@
 	<servlet>
 		<description>
   	</description>
-		<display-name>WriteExcelInEmrtyDb</display-name>
-		<servlet-name>WriteExcelInEmrtyDb</servlet-name>
-		<servlet-class>com.pctrade.price.servlet.WriteExcelInEmrtyDb</servlet-class>
+		<display-name>WriteExcelInEmptyDb</display-name>
+		<servlet-name>WriteExcelInEmptyDb</servlet-name>
+		<servlet-class>com.pctrade.price.servlet.WriteExcelInEmptyDb</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -67,9 +67,23 @@
 	<servlet>
 		<description>
 		</description>
-		<display-name>ReadOutputFromDB</display-name>
-		<servlet-name>ReadOutputFromDB</servlet-name>
-		<servlet-class>com.pctrade.price.servlet.ReadOutputFromDB</servlet-class>
+		<display-name>ReadOutputFromDbCsv</display-name>
+		<servlet-name>ReadOutputFromDbCsv</servlet-name>
+		<servlet-class>com.pctrade.price.servlet.ReadOutputFromDbCsv</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ScanCarPage</display-name>
+		<servlet-name>ScanCarPage</servlet-name>
+		<servlet-class>com.pctrade.price.servlet.ScanCarPage</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ReadOutputFromDbExcel</display-name>
+		<servlet-name>ReadOutputFromDbExcel</servlet-name>
+		<servlet-class>com.pctrade.price.servlet.ReadOutputFromDbExcel</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -77,8 +91,8 @@
 		<url-pattern>/UploadServlet</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>WriteExcelInEmrtyDb</servlet-name>
-		<url-pattern>/WriteExcelInEmrtyDb</url-pattern>
+		<servlet-name>WriteExcelInEmptyDb</servlet-name>
+		<url-pattern>/WriteExcelInEmptyDb</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DBconnect</servlet-name>
@@ -105,7 +119,15 @@
 		<url-pattern>/UpdateExcel</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ReadOutputFromDB</servlet-name>
-		<url-pattern>/ReadOutputFromDB</url-pattern>
+		<servlet-name>ReadOutputFromDbCsv</servlet-name>
+		<url-pattern>/ReadOutputFromDbCsv</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ScanCarPage</servlet-name>
+		<url-pattern>/ScanCarPage</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReadOutputFromDbExcel</servlet-name>
+		<url-pattern>/ReadOutputFromDbExcel</url-pattern>
 	</servlet-mapping>
 </web-app>

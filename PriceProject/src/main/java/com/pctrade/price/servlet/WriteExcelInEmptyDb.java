@@ -15,7 +15,7 @@ import com.pctrade.price.readers.ReadExcel;
 import com.pctrade.price.utils.HttpUtils;
 
 @WebServlet("/parse")
-public class WriteExcelInEmrtyDb extends HttpServlet {
+public class WriteExcelInEmptyDb extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String FORWARD_NAME = "/excelWrite.jsp";
 	private static final String ERROR_NAME = "/errorPage.jsp";
@@ -37,9 +37,9 @@ public class WriteExcelInEmrtyDb extends HttpServlet {
 			daoProductImpl.createProductTable(ReadExcel.readExcelFillProduct(filePath, date));
 
 		} catch (Exception e) {
-			session.setAttribute("exception", e);			
+			session.setAttribute("exception", e);
 			HttpUtils.forward(ERROR_NAME, request, response);
-		}		
+		}
 		HttpUtils.forward(FORWARD_NAME, request, response);
 	}
 }

@@ -15,6 +15,8 @@ import com.pctrade.price.utils.HttpUtils;
 
 public class UpdateExcel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String ERROR_NAME = "/errorPage.jsp";
+	private static final String FORWARD_NAME = "/result.jsp";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -38,8 +40,8 @@ public class UpdateExcel extends HttpServlet {
 
 		} catch (Exception e) {
 			session.setAttribute("exception", e);
-			HttpUtils.forward("/errorPage.jsp", request, response);
+			HttpUtils.forward(ERROR_NAME, request, response);
 		}
-		HttpUtils.forward("/result.jsp", request, response);
+		HttpUtils.forward(FORWARD_NAME, request, response);
 	}
 }

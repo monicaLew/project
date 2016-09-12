@@ -19,7 +19,9 @@ import com.pctrade.price.entity.UploadedFile;
 import com.pctrade.price.utils.HttpUtils;
 
 public class UploadServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;	
+	private static final String ERROR_NAME = "/errorPage.jsp";
+	private static final String FORWARD_NAME = "/lastUploadFile.jsp";	
 
 	private boolean isMultipart;
 	private String filePath;
@@ -77,12 +79,12 @@ public class UploadServlet extends HttpServlet {
 					uploadedFileInfo.setSizeKb(sizeInKB);
 					uploadedFileInfo.setUploadDate(dOfUpload);
 					session.setAttribute("uploadedFileInfo", uploadedFileInfo);
-					HttpUtils.forward("/lastUploadFile.jsp", request, response);
+					HttpUtils.forward(FORWARD_NAME, request, response);
 				}
 			}
 		} catch (Exception ex) {
 			session.setAttribute("exception", ex);
-			HttpUtils.forward("/errorPage.jsp", request, response);
+			HttpUtils.forward(ERROR_NAME, request, response);
 		}
 	}
 

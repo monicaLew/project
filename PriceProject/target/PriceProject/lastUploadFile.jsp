@@ -10,7 +10,8 @@
 <body>
 	<br>
 	<p>
-		Name of Last Uploaded File: &nbsp; ${lastFileNameUpload} <br>
+		Name of Last Uploaded File: &nbsp; ${lastFileNameUpload} &nbsp;&nbsp;
+		Size:&nbsp; ${fileSize} &nbsp; KB<br>
 	<form action="SaveFileInfo" method="post">
 		<input type="submit" value=" SAVE " />
 	</form>
@@ -27,7 +28,7 @@
 	<br>
 	<br>
 	<br>
-	<form action="WriteExcelInEmrtyDb" method="post">
+	<form action="WriteExcelInEmptyDb" method="post">
 		<input type="submit" value="Save uploaded Excel into DB Table" />
 	</form>
 	<br>

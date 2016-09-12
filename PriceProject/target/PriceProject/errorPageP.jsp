@@ -4,20 +4,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Output has Done</title>
+<title>ERROR Page</title>
 </head>
 <body>
-	<h2>Watch file priceList</h2>
-	<br />
-	<br />
+	<h2>Oops! Something is Wrong</h2>
+	<br>
+	<h3>Check input ID</h3>
+	<br>
+	<p>or check the exception message: ${exception}</p>
+	<br>
+	<br>
 	<form action="index.jsp" method="post">
 		<input type="submit" value="Back to Menu" />
-	</form>
-	<br />
-	<br />
-	<form action="ConvertCsvToXlsx" method="post"
-		enctype="multipart/form-data">
-		<input type="submit" value=" Convert CSV to Excel" />
 	</form>
 </body>
 </html>

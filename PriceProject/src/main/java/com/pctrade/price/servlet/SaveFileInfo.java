@@ -11,9 +11,11 @@ import javax.servlet.http.HttpSession;
 import com.pctrade.price.dao.DaoUploadedFile;
 import com.pctrade.price.dao.DaoUploadedFileImpl;
 import com.pctrade.price.entity.UploadedFile;
+import com.pctrade.price.utils.HttpUtils;
 
 public class SaveFileInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String FORWARD_NAME = "/lastUploadFile.jsp";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -31,9 +33,8 @@ public class SaveFileInfo extends HttpServlet {
 		DaoUploadedFile daoUploadedFile = new DaoUploadedFileImpl();
 		UploadedFile uploadedFile = (UploadedFile) session.getAttribute("uploadedFileInfo");
 
-		daoUploadedFile.createUploadedFileInfo(uploadedFile);		
+		daoUploadedFile.createUploadedFileInfo(uploadedFile);
 
-		String encodeURL = response.encodeURL("/lastUploadFile.jsp");
-		request.getRequestDispatcher(encodeURL).forward(request, response);
+		HttpUtils.forward(FORWARD_NAME, request, response);
 	}
 }

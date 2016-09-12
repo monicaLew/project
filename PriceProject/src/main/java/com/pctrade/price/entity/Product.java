@@ -58,7 +58,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return articleCode + "," + article + "," + price
+		return articleCode + "," + article.replaceAll(",", "'") + "," + price
 				+ "," + date + "," + status;
 	}
 }

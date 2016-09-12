@@ -16,6 +16,7 @@ import com.pctrade.price.utils.HttpUtils;
 public class UpdateCSV extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String FORWARD_NAME = "/result.jsp";
+	private static final String ERROR_NAME = "/errorPage.jsp";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -39,9 +40,8 @@ public class UpdateCSV extends HttpServlet {
 
 		} catch (Exception e) {
 			session.setAttribute("exception", e);
-			String encodingURL = response.encodeRedirectURL("/errorPage.jsp");
-			request.getRequestDispatcher(encodingURL).forward(request, response);
+			request.getRequestDispatcher(ERROR_NAME).forward(request, response);
 		}
-		HttpUtils.forward(FORWARD_NAME, request, response);		
+		HttpUtils.forward(FORWARD_NAME, request, response);
 	}
 }

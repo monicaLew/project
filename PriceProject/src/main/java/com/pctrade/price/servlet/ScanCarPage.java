@@ -38,7 +38,7 @@ public class ScanCarPage extends HttpServlet {
 	private static final String TILL_BIGGER_ERROR_TEXT = "ID 'Till' must be bigger than 'From'";
 
 	private static final String SUCCESS_VIEW_NAME = "/inputCars.jsp";
-	private static final String INPUT_VIEW_NAME = "index.jsp";	
+	private static final String INPUT_VIEW_NAME = "index.jsp";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -55,7 +55,7 @@ public class ScanCarPage extends HttpServlet {
 		}
 		Integer idFrom = HttpUtils.getIntParam(request, "idFrom");
 		Integer idTill = HttpUtils.getIntParam(request, "idTill");
-		
+
 		DaoCar daoCar = new DaoCarImpl();
 		daoCar.clearTable();
 		while (idFrom <= idTill) {
@@ -67,7 +67,7 @@ public class ScanCarPage extends HttpServlet {
 		// carList = daoCar.showAllCarsList();
 		carList = daoCar.showCarsByStatus(); // show ALL
 		session.setAttribute("carList", carList); // show only AVAILABLE
-
+		session.setAttribute("numberOfCars", carList.size());
 		HttpUtils.forward(SUCCESS_VIEW_NAME, request, response);
 	}
 

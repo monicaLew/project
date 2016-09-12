@@ -10,8 +10,14 @@
 	<h2>Table in DB has Updated</h2>
 	<br>
 	<br>
-	<form action="ReadOutputFromDB" method="post">
-		<input type="submit" value="Download new Price" />
+	<form action="ReadOutputFromDbExcel" method="post"
+		enctype="multipart/form-data">
+		<input type="submit" value="Download new Price Excel Format" />
+	</form>
+	<br>
+	<br>
+	<form action="ReadOutputFromDbCsv" method="post">
+		<input type="submit" value="Download new Price CSV Format" />
 	</form>
 	<br>
 	<br>

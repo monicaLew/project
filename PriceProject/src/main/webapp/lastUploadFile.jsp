@@ -28,7 +28,7 @@
 	<br>
 	<br>
 	<br>
-	<form action="WriteExcelInEmrtyDb" method="post">
+	<form action="WriteExcelInEmptyDb" method="post">
 		<input type="submit" value="Save uploaded Excel into DB Table" />
 	</form>
 	<br>

@@ -42,21 +42,21 @@ public class ConvertCsvToXlsx extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		OutputStream out = response.getOutputStream();
-		response.setContentType("text/html");
+		//response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		try {
 			@SuppressWarnings("resource")
 			InputStream filecontent = new FileInputStream("C:\\Users\\Monika\\Desktop\\priceList.txt"); // как
-																										// сделать
-																										// универсальный
-																										// путь
+																				// сделать
+																				// универсальный
+																				// путь
 
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			List<FileItem> items = new ServletFileUpload(factory).parseRequest(request);
 			String outputType = "1";
 			for (FileItem item : items) {
-				if (item.isFormField()) {
+				if (item.isFormField()) {      //?
 					String fieldname = item.getFieldName();
 					if (fieldname.equals("2")) {
 						outputType = item.getString();
