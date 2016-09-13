@@ -13,8 +13,8 @@ import com.pctrade.price.mysql.ConnectionManager;
 public class DaoCarImpl implements DaoCar {
 
 	private static final String SELECT_ALL_CARS = "SELECT `ID`, `PAGE_CODE`, `ARTICLE`, `PRICE_BYN`, `PRICE_EUR`, `YEAR`, `STATUS` FROM CAR";
-	private static final String SELECT_CARS_BY_STATUS = "SELECT `ID`, `PAGE_CODE`, `ARTICLE`, `PRICE_BYN`, `PRICE_EUR`, `YEAR`, `STATUS` FROM CAR WHERE STATUS = 'AVAILABLE'"; 
-	private static final String INSERT_INTO_CAR = "INSERT INTO CAR(`PAGE_CODE`, `ARTICLE`, `PRICE_BYN`, `PRICE_EUR`, `YEAR`, `STATUS`) VALUES (?,?,?,?,?,?)";	
+	private static final String SELECT_CARS_BY_STATUS = "SELECT `ID`, `PAGE_CODE`, `ARTICLE`, `PRICE_BYN`, `PRICE_EUR`, `YEAR`, `STATUS` FROM CAR WHERE STATUS = 'AVAILABLE'";
+	private static final String INSERT_INTO_CAR = "INSERT INTO CAR(`PAGE_CODE`, `ARTICLE`, `PRICE_BYN`, `PRICE_EUR`, `YEAR`, `STATUS`) VALUES (?,?,?,?,?,?)";
 	private static final String DELETE = "DELETE FROM CAR";
 	private static final String DELETE_CAR_BY_ID = "DELETE FROM CAR WHERE ID =?";
 
@@ -84,7 +84,7 @@ public class DaoCarImpl implements DaoCar {
 			preparedStatement = connection.prepareStatement(INSERT_INTO_CAR);
 
 			preparedStatement.setInt(1, car.getPageCode());
-			preparedStatement.setString(2, car.getArticle());			
+			preparedStatement.setString(2, car.getArticle());
 			preparedStatement.setDouble(3, car.getPriceByn());
 			preparedStatement.setInt(4, car.getPriceEuro());
 			preparedStatement.setInt(5, car.getYear());
@@ -94,9 +94,9 @@ public class DaoCarImpl implements DaoCar {
 			throw new DaoException(e);
 		} finally {
 			ConnectionManager.closeDbResources(connection, preparedStatement);
-		}		
+		}
 	}
-	
+
 	public void deleteCar(Integer carId) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

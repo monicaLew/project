@@ -13,7 +13,7 @@ import com.pctrade.price.mysql.ConnectionManager;
 public class DaoProductImpl implements DaoProduct {
 
 	private static final String SELECT_ALL_PRODUCT = "SELECT `ID`, `ARTICLE_CODE`, `ARTICLE`, `PRICE`, `UPLOAD_DATE`, `STATUS` FROM PRODUCT";
-	private static final String SELECT_PRODUCT_BY_ID = "SELECT `ID`, `ARTICLE_CODE`, `ARTICLE`, `PRICE`, `UPLOAD_DATE`, `STATUS` FROM PRODUCT WHERE ID =?";	
+	private static final String SELECT_PRODUCT_BY_ID = "SELECT `ID`, `ARTICLE_CODE`, `ARTICLE`, `PRICE`, `UPLOAD_DATE`, `STATUS` FROM PRODUCT WHERE ID =?";
 	private static final String UPDATE_PRODUCT_SET_NOTAVAILABLE = "UPDATE PRODUCT SET `STATUS`='NOT_AVAILABLE'";
 	private static final String UPDATE_PRODUCT = "UPDATE PRODUCT SET PRICE = ?, UPLOAD_DATE = ?, STATUS = 'AVAILABLE' WHERE `ARTICLE_CODE`=?";
 	private static final String COUNT_PRODUCT_WITH_CERTAIN_ARTICLE_CODE = "SELECT COUNT(ARTICLE_CODE) FROM PRODUCT WHERE ARTICLE_CODE =?";
@@ -97,28 +97,6 @@ public class DaoProductImpl implements DaoProduct {
 		}
 	}
 
-	public int countProductWithArticleCode(Product product) {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		int count = 0;
-		try {
-			connection = ConnectionManager.getManager().getConnection();
-			preparedStatement = connection.prepareStatement(COUNT_PRODUCT_WITH_CERTAIN_ARTICLE_CODE);
-			preparedStatement.setInt(1, product.getArticleCode());
-			resultSet = preparedStatement.executeQuery();
-
-			while (resultSet.next()) {
-				count = resultSet.getInt(1);
-			}
-		} catch (SQLException e) {
-			throw new DaoException(e);
-		} finally {
-			ConnectionManager.closeDbResources(connection, preparedStatement, resultSet);
-		}
-		return count;
-	}
-
 	public void updateProduct(Product product) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -153,21 +131,6 @@ public class DaoProductImpl implements DaoProduct {
 		} finally {
 			ConnectionManager.closeDbResources(connection, preparedStatement);
 		}
-	}
-
-	public void clearTable() {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		try {
-			connection = ConnectionManager.getManager().getConnection();
-			preparedStatement = connection.prepareStatement(DELETE);
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			throw new DaoException(e);
-		} finally {
-			ConnectionManager.closeDbResources(connection, preparedStatement);
-		}
-
 	}
 
 	public void setNotAvailableStatusForAll() {
@@ -260,6 +223,42 @@ public class DaoProductImpl implements DaoProduct {
 			} catch (SQLException ex) {
 				throw new DaoException(ex);
 			}
+			throw new DaoException(e);
+		} finally {
+			ConnectionManager.closeDbResources(connection, preparedStatement);
+		}
+	}
+
+	public int countProductWithArticleCode(Product product) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int count = 0;
+		try {
+			connection = ConnectionManager.getManager().getConnection();
+			preparedStatement = connection.prepareStatement(COUNT_PRODUCT_WITH_CERTAIN_ARTICLE_CODE);
+			preparedStatement.setInt(1, product.getArticleCode());
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				count = resultSet.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		} finally {
+			ConnectionManager.closeDbResources(connection, preparedStatement, resultSet);
+		}
+		return count;
+	}
+
+	public void clearTable() {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = ConnectionManager.getManager().getConnection();
+			preparedStatement = connection.prepareStatement(DELETE);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
 			throw new DaoException(e);
 		} finally {
 			ConnectionManager.closeDbResources(connection, preparedStatement);

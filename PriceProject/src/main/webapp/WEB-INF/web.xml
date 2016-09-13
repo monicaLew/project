@@ -85,6 +85,13 @@
 		<servlet-name>ReadOutputFromDbExcel</servlet-name>
 		<servlet-class>com.pctrade.price.servlet.ReadOutputFromDbExcel</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>er</display-name>
+		<servlet-name>er</servlet-name>
+		<servlet-class>com.pctrade.price.servlet.er</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>UploadServlet</servlet-name>
@@ -129,5 +136,9 @@
 	<servlet-mapping>
 		<servlet-name>ReadOutputFromDbExcel</servlet-name>
 		<url-pattern>/ReadOutputFromDbExcel</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>er</servlet-name>
+		<url-pattern>/er</url-pattern>
 	</servlet-mapping>
 </web-app>

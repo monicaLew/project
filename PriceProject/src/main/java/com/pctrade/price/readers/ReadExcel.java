@@ -24,10 +24,10 @@ public class ReadExcel {
 		XSSFWorkbook workbook = new XSSFWorkbook(fis);
 		XSSFSheet sheet = workbook.getSheetAt(0);
 
-		Iterator<Row> ite = sheet.rowIterator();
-		while (ite.hasNext()) {
+		Iterator<Row> iterator = sheet.rowIterator();
+		while (iterator.hasNext()) {
 			Product product = new Product();
-			Row row = (Row) ite.next();
+			Row row = (Row) iterator.next();
 			Iterator<Cell> cellIterator = row.cellIterator();
 			int index = 1;
 			while (cellIterator.hasNext() && index < 4) {
@@ -54,7 +54,7 @@ public class ReadExcel {
 			product.setDate(date);
 			productsList.add(product);
 		}
-		ite = null;
+		iterator = null;
 		fis.close();
 		return productsList;
 	}

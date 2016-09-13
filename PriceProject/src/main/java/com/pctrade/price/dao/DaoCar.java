@@ -10,7 +10,7 @@ public interface DaoCar {
 
 	List<Car> showCarsByStatus();
 
-	void createCar(Car car);	
+	void createCar(Car car);
 
 	void deleteCar(Integer carId);
 

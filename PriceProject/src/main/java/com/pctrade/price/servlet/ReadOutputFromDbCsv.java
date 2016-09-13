@@ -14,11 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.pctrade.price.dao.DaoProduct;
 import com.pctrade.price.dao.DaoProductImpl;
 import com.pctrade.price.entity.Product;
+import com.pctrade.price.utils.HttpUtils;
 
 public class ReadOutputFromDbCsv extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	//private static final String FORWARD_NAME = "/output.jsp";
-	//private static final String ERROR_NAME = "/errorPage.jsp";
+	private static final String ENCODING_TYPE = "UTF-8";
+	private static final String CONTENT_TYPE = "application/octet-stream";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -28,38 +29,34 @@ public class ReadOutputFromDbCsv extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
-		// response.setContentType("text/html");
-		response.setCharacterEncoding("UTF-8");
+		HttpUtils.requestEncode(request, ENCODING_TYPE);
+		HttpUtils.responseEncode(response, ENCODING_TYPE);
 
 		DaoProduct daoProduct = new DaoProductImpl();
-		List<Product> productsList = daoProduct.showAllProductList();	
+		List<Product> productsList = daoProduct.showAllProductList();
 
-//		try {
-//			File file = new File("C:/priceList.txt"); // change to cross
-//														// functional
-//			FileWriter fileWriter = new FileWriter(file);
-//			Writer writer = new BufferedWriter(fileWriter);
-//
-//			for (Product product : productsList) {
-//				writer.write(product.toString() + System.getProperty("line.separator"));
-//			}
-//			writer.close();
-//			fileWriter.close();
-//		} catch (FileNotFoundException e) {
-//			HttpUtils.forward(ERROR_NAME, request, response);
-//		}
-		 response.setContentType("application/octet-stream");
-				 response.setHeader("Content-Disposition",
-				 "attachment;filename=priceList.txt");
-				 				 
-				 BufferedWriter writer2 = new BufferedWriter(new
-				 OutputStreamWriter(response.getOutputStream()));
-				 for (Product product : productsList) {
-				 writer2.write(product.toString() +
-				 System.getProperty("line.separator"));
-				 }
-				 writer2.close();			 				
-		//HttpUtils.forward(FORWARD_NAME, request, response);		
+		// try {
+		// File file = new File("C:/priceList.txt"); //на свой комп
+		// FileWriter fileWriter = new FileWriter(file);
+		// Writer writer = new BufferedWriter(fileWriter);
+		//
+		// for (Product product : productsList) {
+		// writer.write(product.toString() +
+		// System.getProperty("line.separator"));
+		// }
+		// writer.close();
+		// fileWriter.close();
+		// } catch (FileNotFoundException e) {
+		// HttpUtils.forward(ERROR_NAME, request, response);
+		// }
+		HttpUtils.contentType(response, CONTENT_TYPE);
+		response.setHeader("Content-Disposition", "attachment;filename=priceListCSV.txt");
+
+		BufferedWriter writer2 = new BufferedWriter(new OutputStreamWriter(response.getOutputStream()));
+		for (Product product : productsList) {
+			writer2.write(product.toString() + System.getProperty("line.separator"));
+		}
+		writer2.close();
+		// HttpUtils.forward(FORWARD_NAME, request, response);
 	}
 }

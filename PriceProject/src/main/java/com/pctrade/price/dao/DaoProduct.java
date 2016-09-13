@@ -10,17 +10,17 @@ public interface DaoProduct {
 
 	Product showProductById(Integer productId);
 
-	void createProduct(Product product); 
+	void createProduct(Product product);
 
 	void updateProduct(Product product);
-
-	void updateProductTable(List<Product> products);
-	
-	void createProductTable(List<Product> products);
 
 	void deleteProduct(Integer productId);
 
 	void setNotAvailableStatusForAll();
+
+	void createProductTable(List<Product> products);
+
+	void updateProductTable(List<Product> products);
 
 	int countProductWithArticleCode(Product product);
 

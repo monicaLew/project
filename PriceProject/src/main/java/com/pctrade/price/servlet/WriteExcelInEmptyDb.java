@@ -17,6 +17,8 @@ import com.pctrade.price.utils.HttpUtils;
 @WebServlet("/parse")
 public class WriteExcelInEmptyDb extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String ENCODING_TYPE = "UTF-8";
+	private static final String CONTENT_TYPE = "text/html";
 	private static final String FORWARD_NAME = "/excelWrite.jsp";
 	private static final String ERROR_NAME = "/errorPage.jsp";
 
@@ -28,6 +30,9 @@ public class WriteExcelInEmptyDb extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		HttpUtils.requestEncode(request, ENCODING_TYPE);
+		HttpUtils.responseEncode(response, ENCODING_TYPE);
+		HttpUtils.contentType(response, CONTENT_TYPE);
 		HttpSession session = request.getSession();
 		String filePath = getServletContext().getInitParameter("file-upload")
 				+ session.getAttribute("lastFileNameUpload");

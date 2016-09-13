@@ -22,11 +22,10 @@
 	</form>
 	<br />
 	<br />
-
-	  	<form action="ScanCarPage" method="post">
+	<form action="ScanCarPage" method="post">
 		<p>
 			<b>ID from:</b><br> <input type="text" name="idFrom" size="40" />
-			
+
 			<validation:fieldError errorCode="idFrom.negative.error">
 				&emsp;
 				<span style="color: red;">${fieldErrorText}</span>
@@ -59,10 +58,8 @@
 				&emsp;
 				<span style="color: red;">${fieldErrorText}</span>
 			</validation:fieldError>
-			
-			</p>			
-	<br />
-	<input type="submit" value="ScanningPages" />
+		</p>
+		<br /> <input type="submit" value="ScanningPages" />
 	</form>
 </body>
 </html>

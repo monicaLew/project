@@ -1,6 +1,5 @@
 package com.pctrade.price.servlet;
 
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -20,10 +19,12 @@ import org.apache.poi.ss.usermodel.Row;
 import com.pctrade.price.dao.DaoProduct;
 import com.pctrade.price.dao.DaoProductImpl;
 import com.pctrade.price.entity.Product;
-
+import com.pctrade.price.utils.HttpUtils;
 
 public class ReadOutputFromDbExcel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String ENCODING_TYPE = "UTF-8";
+	private static final String CONTENT_TYPE = "application/vnd.ms-excel";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -31,13 +32,12 @@ public class ReadOutputFromDbExcel extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-
-		response.setContentType("application/vnd.ms-excel");
-		// response.setHeader("Content-Disposition",
-		// "attachment;filename=priceList.xls");
+			throws ServletException, IOException {		
+		//response.setContentType("text/html");
+		HttpUtils.requestEncode(request, ENCODING_TYPE);
+		HttpUtils.responseEncode(response, ENCODING_TYPE);
+		HttpUtils.contentType(response, CONTENT_TYPE);
+		response.setHeader("Content-Disposition", "attachment; filename=priceList.xls");
 
 		String[] nextLine;
 		int lnNum = 0;

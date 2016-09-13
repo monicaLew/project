@@ -10,7 +10,7 @@ public interface DaoUploadedFile {
 
 	UploadedFile showUploadedFileInfoById(Integer uploadedFiletId);
 
-	void createUploadedFileInfo(UploadedFile file); 	
+	void createUploadedFileInfo(UploadedFile file);
 
 	void deleteUploadedFileInfo(Integer uploadedFiletId);
 

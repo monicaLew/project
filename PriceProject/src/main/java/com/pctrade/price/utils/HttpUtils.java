@@ -1,6 +1,7 @@
 package com.pctrade.price.utils;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,18 @@ public final class HttpUtils {
 
 	private HttpUtils() {
 		throw new InstantiationError("No need instances for static content!");
+	}
+	
+	public static void requestEncode(HttpServletRequest request, String characterEncoding) throws UnsupportedEncodingException{
+		request.setCharacterEncoding(characterEncoding);
+	}
+	
+	public static void responseEncode(HttpServletResponse response, String characterEncoding){
+		response.setCharacterEncoding(characterEncoding);
+	}
+	
+	public static void contentType(HttpServletResponse response, String contentType){
+		response.setContentType(contentType);
 	}
 
 	public static void forward(String url, HttpServletRequest request, HttpServletResponse response)

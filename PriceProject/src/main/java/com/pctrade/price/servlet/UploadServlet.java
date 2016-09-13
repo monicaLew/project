@@ -19,9 +19,11 @@ import com.pctrade.price.entity.UploadedFile;
 import com.pctrade.price.utils.HttpUtils;
 
 public class UploadServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;	
+	private static final long serialVersionUID = 1L;
+	private static final String ENCODING_TYPE = "UTF-8";
+	private static final String CONTENT_TYPE = "text/html";
 	private static final String ERROR_NAME = "/errorPage.jsp";
-	private static final String FORWARD_NAME = "/lastUploadFile.jsp";	
+	private static final String FORWARD_NAME = "/lastUploadFile.jsp";
 
 	private boolean isMultipart;
 	private String filePath;
@@ -33,12 +35,12 @@ public class UploadServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
-		request.setCharacterEncoding("UTF-8");
+		HttpUtils.requestEncode(request, ENCODING_TYPE);
 		HttpSession session = request.getSession();
 		try {
 			isMultipart = ServletFileUpload.isMultipartContent(request);
-			response.setContentType("text/html");
-			response.setCharacterEncoding("UTF-8");
+			HttpUtils.responseEncode(response, ENCODING_TYPE);
+			HttpUtils.contentType(response, CONTENT_TYPE);
 			PrintWriter out = response.getWriter();
 			if (!isMultipart) {
 				out.println("<html>");
@@ -51,20 +53,19 @@ public class UploadServlet extends HttpServlet {
 				out.println("</html>");
 				return;
 			}
-
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);
 
 			List<FileItem> fileItems = upload.parseRequest(request);
-			Iterator<FileItem> i = fileItems.iterator();
+			Iterator<FileItem> iterator = fileItems.iterator();
 
-			while (i.hasNext()) {
-				FileItem fi = (FileItem) i.next();
-				if (!fi.isFormField()) {
-					String fileName = fi.getName();
-					long sizeInBytes = fi.getSize();
+			while (iterator.hasNext()) {
+				FileItem fileItem = (FileItem) iterator.next();
+				if (!fileItem.isFormField()) {
+					String fileName = fileItem.getName();
+					long sizeInBytes = fileItem.getSize();
 					file = new File(filePath + fileName);
-					fi.write(file);
+					fileItem.write(file);
 
 					Date date = new Date();
 					SimpleDateFormat dateFormat = new SimpleDateFormat();
@@ -82,6 +83,7 @@ public class UploadServlet extends HttpServlet {
 					HttpUtils.forward(FORWARD_NAME, request, response);
 				}
 			}
+			iterator = null;
 		} catch (Exception ex) {
 			session.setAttribute("exception", ex);
 			HttpUtils.forward(ERROR_NAME, request, response);
