@@ -1,8 +1,5 @@
 package com.pctrade.price.parser;
 
-import java.net.SocketTimeoutException;
-
-import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -11,71 +8,36 @@ import com.pctrade.price.entity.Car;
 
 public class HtmlParser {
 
-	public static Car extractCarInfo(String urlBase, Integer idPage) {
+	public static Car extractCarInfo(String urlBase, Integer idPage) throws Exception {
 		Car car = new Car();
-		try {
-			StringBuilder s = new StringBuilder(urlBase);
-			s.append(idPage);
-			String url = s.toString();
-			Document doc = Jsoup.connect(url).get();
 
-			Elements divWithCarCost = doc.select("span.cost-eur");
-			String carCostEuroS = divWithCarCost.last().text().replaceAll(" ", "");
-			Integer carCostEuro = Integer.parseInt(carCostEuroS.replaceAll("€", ""));
-			Elements divWithCarCostByr = doc.select("span.cost-byr");
-			String carCostByr = divWithCarCostByr.last().text().replaceAll(" ", "");
-			Double carCostBy = Double.parseDouble(carCostByr.replaceAll("р.", ""));
+		StringBuilder s = new StringBuilder(urlBase);
+		s.append(idPage);
+		String url = s.toString();
+		Document doc = Jsoup.connect(url).get();
 
-			Elements divStrong = doc.select("strong");
-			String annonceId = divStrong.first().text().replaceAll("\u00a0", "").trim();
-			Integer i = Integer.parseInt(annonceId);
+		Elements divWithCarCost = doc.select("span.cost-eur");
+		String carCostEuroS = divWithCarCost.last().text().replaceAll(" ", "");
+		Integer carCostEuro = Integer.parseInt(carCostEuroS.replaceAll("€", ""));
+		Elements divWithCarCostByr = doc.select("span.cost-byr");
+		String carCostByr = divWithCarCostByr.last().text().replaceAll(" ", "");
+		Double carCostBy = Double.parseDouble(carCostByr.replaceAll("р.", ""));
 
-			String link = doc.select("a.see_link_mod").text();
-			Elements el = doc.select("div[style=font-weight:bold;font-size:1.4em;]");
-			Integer year = Integer.parseInt(el.text().substring(0, 4));
+		Elements divStrong = doc.select("strong");
+		String annonceId = divStrong.first().text().replaceAll("\u00a0", "").trim();
+		Integer i = Integer.parseInt(annonceId);
 
-			car.setPageCode(i);
-			car.setArticle(link);
-			car.setPriceByn(carCostBy);
-			car.setPriceEuro(carCostEuro);
-			car.setYear(year);
-			car.setStatus("AVAILABLE");
+		String link = doc.select("a.see_link_mod").text();
+		Elements el = doc.select("div[style=font-weight:bold;font-size:1.4em;]");
+		Integer year = Integer.parseInt(el.text().substring(0, 4));
 
-		} catch (HttpStatusException e) {
-			car.setPageCode(idPage);
-			car.setArticle(null);
-			car.setPriceByn(0.0);
-			car.setPriceEuro(0);
-			car.setYear(0);
-			car.setStatus("PAGE_NOT_EXIST");
-			return car;
-		} catch (SocketTimeoutException ex) {
-			car.setPageCode(idPage);
-			car.setArticle(null);
-			car.setPriceByn(0.0);
-			car.setPriceEuro(0);
-			car.setYear(0);
-			car.setStatus("NOT_DOWNLOAD_SOME_INET_PROBLEM");
-			return car;
-		} catch (NumberFormatException ex) {
-			car.setPageCode(idPage);
-			car.setArticle(null);
-			car.setPriceByn(0.0);
-			car.setPriceEuro(0);
-			car.setYear(0);
-			car.setStatus("PAGE_NOT_VALID");
-			return car;
-		} catch (NullPointerException e) {
-			car.setPageCode(idPage);
-			car.setArticle(null);
-			car.setPriceByn(0.0);
-			car.setPriceEuro(0);
-			car.setYear(0);
-			car.setStatus("PAGE_NOT_VALID");
-			return car;
-		} catch (Exception ex) {
-			return null;
-		}
+		car.setPageCode(i);
+		car.setArticle(link);
+		car.setPriceByn(carCostBy);
+		car.setPriceEuro(carCostEuro);
+		car.setYear(year);
+		car.setStatus("AVAILABLE");
+
 		return car;
 	}
 }

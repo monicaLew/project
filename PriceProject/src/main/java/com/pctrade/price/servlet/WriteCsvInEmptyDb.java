@@ -16,7 +16,6 @@ import com.pctrade.price.utils.HttpUtils;
 public class WriteCsvInEmptyDb extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ENCODING_TYPE = "UTF-8";
-	private static final String CONTENT_TYPE = "text/html";
 	private static final String FORWARD_NAME = "/csvWrite.jsp";
 	private static final String ERROR_NAME = "/errorPage.jsp";
 
@@ -27,17 +26,14 @@ public class WriteCsvInEmptyDb extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		HttpUtils.requestEncode(request, ENCODING_TYPE);
-		HttpUtils.responseEncode(response, ENCODING_TYPE);
-		HttpUtils.contentType(response, CONTENT_TYPE);
+		HttpUtils.Encode(request, response, ENCODING_TYPE);
 		HttpSession session = request.getSession();
 		String uploadDate = (String) session.getAttribute("dateOfUpload");
 		try {
 			DaoProduct daoProductImpl = new DaoProductImpl();
 			String csvFile = getServletContext().getInitParameter("file-upload")
 					+ session.getAttribute("lastFileNameUpload");
-			daoProductImpl.createProductTable(ReadCsv.readCsvFillProtuct(csvFile, uploadDate));
+			daoProductImpl.createProductTable(ReadCsv.readCsvFillProduct(csvFile, uploadDate));
 
 		} catch (Exception e) {
 			session.setAttribute("exception", e);

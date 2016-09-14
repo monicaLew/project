@@ -35,12 +35,11 @@ public class UploadServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
-		HttpUtils.requestEncode(request, ENCODING_TYPE);
+		HttpUtils.Encode(request, response, ENCODING_TYPE);
 		HttpSession session = request.getSession();
 		try {
 			isMultipart = ServletFileUpload.isMultipartContent(request);
-			HttpUtils.responseEncode(response, ENCODING_TYPE);
-			HttpUtils.contentType(response, CONTENT_TYPE);
+			response.setContentType(CONTENT_TYPE);
 			PrintWriter out = response.getWriter();
 			if (!isMultipart) {
 				out.println("<html>");

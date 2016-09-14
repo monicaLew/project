@@ -15,20 +15,14 @@ import com.pctrade.price.utils.HttpUtils;
 
 public class UpdateCSV extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String ENCODING_TYPE = "UTF-8";
 	private static final String FORWARD_NAME = "/result.jsp";
-	private static final String ERROR_NAME = "/errorPage.jsp";
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+	private static final String ERROR_NAME = "/errorPage.jsp";	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		response.setCharacterEncoding("UTF-8");
+		HttpUtils.Encode(request, response, ENCODING_TYPE);
 		HttpSession session = request.getSession();
 		try {
 			String date = (String) session.getAttribute("dateOfUpload");
@@ -36,12 +30,12 @@ public class UpdateCSV extends HttpServlet {
 					+ session.getAttribute("lastFileNameUpload");
 
 			DaoProduct daoProductImpl = new DaoProductImpl();
-			daoProductImpl.updateProductTable(ReadCsv.readCsvFillProtuct(filePath, date));
+			daoProductImpl.updateProductTable(ReadCsv.readCsvFillProduct(filePath, date));
 
 		} catch (Exception e) {
 			session.setAttribute("exception", e);
-			request.getRequestDispatcher(ERROR_NAME).forward(request, response);
+			HttpUtils.forward(ERROR_NAME, request, response);
 		}
-		HttpUtils.forward(FORWARD_NAME, request, response);
+		HttpUtils.forward(FORWARD_NAME, request, response);		
 	}
 }

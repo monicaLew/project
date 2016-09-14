@@ -19,9 +19,7 @@
 	</c:forEach>
 	<br>
 	<br>
-	<br>
-	<form action="index.jsp" method="post">
-		<input type="submit" value="Back to Menu" />
-	</form>
+	<br>	
+	<a href="mainMenu.jsp">Back To Main Page(menu)</a>
 </body>
 </html>

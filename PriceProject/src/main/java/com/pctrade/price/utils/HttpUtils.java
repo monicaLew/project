@@ -16,17 +16,10 @@ public final class HttpUtils {
 		throw new InstantiationError("No need instances for static content!");
 	}
 	
-	public static void requestEncode(HttpServletRequest request, String characterEncoding) throws UnsupportedEncodingException{
+	public static void Encode(HttpServletRequest request, HttpServletResponse response, String characterEncoding) throws UnsupportedEncodingException{
 		request.setCharacterEncoding(characterEncoding);
-	}
-	
-	public static void responseEncode(HttpServletResponse response, String characterEncoding){
 		response.setCharacterEncoding(characterEncoding);
-	}
-	
-	public static void contentType(HttpServletResponse response, String contentType){
-		response.setContentType(contentType);
-	}
+	}		
 
 	public static void forward(String url, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

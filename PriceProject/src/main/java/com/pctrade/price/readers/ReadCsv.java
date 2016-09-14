@@ -11,7 +11,7 @@ import com.pctrade.price.entity.Product;
 
 public class ReadCsv {
 
-	public static List<Product> readCsvFillProtuct(String filePath, String uploadDate)
+	public static List<Product> readCsvFillProduct(String filePath, String uploadDate)
 			throws NumberFormatException, IOException {
 
 		List<Product> productsList = new ArrayList<Product>();

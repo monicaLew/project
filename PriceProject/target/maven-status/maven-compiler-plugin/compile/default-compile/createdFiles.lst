@@ -1,5 +1,6 @@
 com\pctrade\price\entity\Car.class
 com\pctrade\price\servlet\WriteExcelInEmptyDb.class
+com\pctrade\price\utils\ConfigUtils.class
 com\pctrade\price\dao\DaoUploadedFileImpl.class
 com\pctrade\price\servlet\WriteCsvInEmptyDb.class
 com\pctrade\price\dao\DaoCar.class
@@ -18,6 +19,7 @@ com\pctrade\price\entity\Product.class
 com\pctrade\price\servlet\ReadOutputFromDbCsv.class
 com\pctrade\price\mysql\ConnectionManager.class
 com\pctrade\price\servlet\ReadOutputFromDbExcel.class
+com\pctrade\price\servlet\ShowCars.class
 com\pctrade\price\readers\ReadCsv.class
 com\pctrade\price\servlet\UpdateCSV.class
 com\pctrade\price\mysql\ConnectionManager$1.class
@@ -25,5 +27,6 @@ com\pctrade\price\readers\ReadExcel.class
 com\pctrade\price\validation\FormValidator.class
 com\pctrade\price\dao\DaoProductImpl.class
 com\pctrade\price\servlet\UpdateExcel.class
-com\pctrade\price\servlet\ConvertCsvToXlsx.class
+com\pctrade\price\servlet\IndexServlet.class
+com\pctrade\price\servlet\Myseeeervlet.class
 com\pctrade\price\dao\DaoUploadedFile.class

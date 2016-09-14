@@ -1,9 +1,7 @@
 package com.pctrade.price.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -37,8 +35,9 @@ public class ScanCarPage extends HttpServlet {
 	private static final String FROM_LESS_ERROR_TEXT = "ID 'From' must be less than 'Till'";
 	private static final String TILL_BIGGER_ERROR_TEXT = "ID 'Till' must be bigger than 'From'";
 
-	private static final String SUCCESS_VIEW_NAME = "/inputCars.jsp";
-	private static final String INPUT_VIEW_NAME = "index.jsp";
+	private static final String SUCCESS_VIEW_NAME = "/scanStatistics.jsp";
+	private static final String INPUT_VIEW_NAME = "mainMenu.jsp";
+	private static final String ERROR_NAME = "/errorPage.jsp";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -57,18 +56,26 @@ public class ScanCarPage extends HttpServlet {
 		Integer idTill = HttpUtils.getIntParam(request, "idTill");
 
 		DaoCar daoCar = new DaoCarImpl();
-		daoCar.clearTable();
-		while (idFrom <= idTill) {
-			Car car = HtmlParser.extractCarInfo(urlBase, idFrom);
-			daoCar.createCar(car);
-			idFrom++;
+		try {
+			daoCar.clearTable();
+		} catch (IllegalAccessException e1) {
+			HttpUtils.forward(ERROR_NAME, request, response);
 		}
-		List<Car> carList = new ArrayList<Car>();
-		// carList = daoCar.showAllCarsList();
-		carList = daoCar.showCarsByStatus(); // show ALL
-		session.setAttribute("carList", carList); // show only AVAILABLE
-		session.setAttribute("numberOfCars", carList.size());
-		HttpUtils.forward(SUCCESS_VIEW_NAME, request, response);
+		for(int id = idFrom; id <= idTill; id++){
+			Car car;
+			try {
+				car = HtmlParser.extractCarInfo(urlBase, id);				
+			} catch (Exception e) {
+				car = Car.createCar(e, id);				
+			}						
+			try {
+				daoCar.createCar(car);
+			} catch (IllegalAccessException e) {
+				session.setAttribute("exception", e);
+				HttpUtils.forward(ERROR_NAME, request, response);
+			}
+		}
+		HttpUtils.forward(SUCCESS_VIEW_NAME, request, response);				
 	}
 
 	private boolean validate(HttpServletRequest request) {

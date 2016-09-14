@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -24,6 +25,7 @@ import com.pctrade.price.utils.HttpUtils;
 public class ReadOutputFromDbExcel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ENCODING_TYPE = "UTF-8";
+	private static final String ERROR_NAME = "/errorPage.jsp";
 	private static final String CONTENT_TYPE = "application/vnd.ms-excel";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,10 +35,9 @@ public class ReadOutputFromDbExcel extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {		
-		//response.setContentType("text/html");
-		HttpUtils.requestEncode(request, ENCODING_TYPE);
-		HttpUtils.responseEncode(response, ENCODING_TYPE);
-		HttpUtils.contentType(response, CONTENT_TYPE);
+		HttpSession session = request.getSession();
+		HttpUtils.Encode(request, response, ENCODING_TYPE);
+		response.setContentType(CONTENT_TYPE);
 		response.setHeader("Content-Disposition", "attachment; filename=priceList.xls");
 
 		String[] nextLine;
@@ -45,7 +46,10 @@ public class ReadOutputFromDbExcel extends HttpServlet {
 		HSSFSheet sheet = workBook.createSheet("CSV2XLS");
 		Row row;
 		DaoProduct daoProduct = new DaoProductImpl();
-		List<Product> productsList = daoProduct.showAllProductList();
+		List<Product> productsList;
+		try {
+			productsList = daoProduct.showAllProductList();
+		
 		Map<String, String[]> excelData = new HashMap<String, String[]>();
 
 		for (Product product : productsList) {
@@ -64,6 +68,11 @@ public class ReadOutputFromDbExcel extends HttpServlet {
 				cell.setCellValue(obj);
 			}
 		}
-		workBook.write(response.getOutputStream());
+		workBook.write(response.getOutputStream());		
+	
+	} catch (IllegalAccessException e) {
+		session.setAttribute("exception", e);
+		HttpUtils.forward(ERROR_NAME, request, response);
+	}
 	}
 }

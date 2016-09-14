@@ -18,7 +18,7 @@ public class DaoUploadedFileImpl implements DaoUploadedFile {
 	private static final String DELETE_FILE_INFO_BY_ID = "DELETE FROM FILE_INFO WHERE ID =?";
 	private static final String DELETE = "DELETE FROM FILE_INFO";
 
-	public List<UploadedFile> showAllUploadedFileInfoList() {
+	public List<UploadedFile> showAllUploadedFileInfoList() throws IllegalAccessException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -39,14 +39,14 @@ public class DaoUploadedFileImpl implements DaoUploadedFile {
 			}
 
 		} catch (SQLException e) {
-			throw new DaoException(e);
+			throw new IllegalAccessException();
 		} finally {
-			ConnectionManager.closeDbResources(connection, preparedStatement, resultSet);
+			ConnectionManager.getManager().closeDbResources(connection, preparedStatement, resultSet);
 		}
 		return uploadedFileInfoList;
 	}
 
-	public UploadedFile showUploadedFileInfoById(Integer uploadedFiletId) {
+	public UploadedFile showUploadedFileInfoById(Integer uploadedFiletId) throws IllegalAccessException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -66,14 +66,14 @@ public class DaoUploadedFileImpl implements DaoUploadedFile {
 				uploadedFile.setUpdated(resultSet.getString("LAST_UPDATED"));
 			}
 		} catch (SQLException e) {
-			throw new DaoException(e);
+			throw new IllegalAccessException();
 		} finally {
-			ConnectionManager.closeDbResources(connection, preparedStatement, resultSet);
+			ConnectionManager.getManager().closeDbResources(connection, preparedStatement, resultSet);
 		}
 		return uploadedFile;
 	}
 
-	public void createUploadedFileInfo(UploadedFile file) {
+	public void createUploadedFileInfo(UploadedFile file) throws IllegalAccessException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -85,13 +85,13 @@ public class DaoUploadedFileImpl implements DaoUploadedFile {
 			preparedStatement.setString(3, file.getUploadDate());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new DaoException(e);
+			throw new IllegalAccessException();
 		} finally {
-			ConnectionManager.closeDbResources(connection, preparedStatement);
+			ConnectionManager.getManager().closeDbResources(connection, preparedStatement);
 		}
 	}
 
-	public void deleteUploadedFileInfo(Integer uploadedFiletId) {
+	public void deleteUploadedFileInfo(Integer uploadedFiletId) throws IllegalAccessException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -104,13 +104,13 @@ public class DaoUploadedFileImpl implements DaoUploadedFile {
 				preparedStatement.close();
 			}
 		} catch (SQLException e) {
-			throw new DaoException(e);
+			throw new IllegalAccessException();
 		} finally {
-			ConnectionManager.closeDbResources(connection, preparedStatement);
+			ConnectionManager.getManager().closeDbResources(connection, preparedStatement);
 		}
 	}
 
-	public void clearTable() {
+	public void clearTable() throws IllegalAccessException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -118,9 +118,9 @@ public class DaoUploadedFileImpl implements DaoUploadedFile {
 			preparedStatement = connection.prepareStatement(DELETE);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new DaoException(e);
+			throw new IllegalAccessException();
 		} finally {
-			ConnectionManager.closeDbResources(connection, preparedStatement);
+			ConnectionManager.getManager().closeDbResources(connection, preparedStatement);
 		}
 	}
 }

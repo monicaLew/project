@@ -8,26 +8,32 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
+import com.pctrade.price.utils.ConfigUtils;
 
 public class ConnectionManager {
-	
-	private static class HolderManager{
-	private final static ConnectionManager connectionManager = new ConnectionManager();
+
+	private String dbDriver;
+	private String dbUrl;
+	private String dbUser;
+	private String dbPassword;
+
+	private static class HolderManager {
+		private final static ConnectionManager connectionManager = new ConnectionManager();
 	}
 
-	private final static String URL = "jdbc:mysql://localhost/PC_TRADE";
-	private final static String USER = "root";
-	private final static String PASSWORD = "root";
-
-	static {
+	private ConnectionManager() {
+		Properties dbProperties = ConfigUtils.loadDbProperties();
+		dbDriver = dbProperties.getProperty("mysql.db_driver");
+		dbUrl = dbProperties.getProperty("mysql.db_url");
+		dbUser = dbProperties.getProperty("mysql.db_user");
+		dbPassword = dbProperties.getProperty("mysql.db_password");
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName(dbDriver);
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
-	}
-	private ConnectionManager() {
-		super();
 	}
 
 	public static ConnectionManager getManager() {
@@ -39,7 +45,7 @@ public class ConnectionManager {
 	public Connection getConnection() {
 		if (connectionList.isEmpty()) {
 			try {
-				return DriverManager.getConnection(URL, USER, PASSWORD);
+				return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
 			} catch (SQLException e) {
 				throw new RuntimeException(e);
 			}
@@ -51,18 +57,17 @@ public class ConnectionManager {
 		connectionList.add(connection);
 	}
 
-	public static void closeDbResources(Connection connection, PreparedStatement preparedStatement) {
+	public void closeDbResources(Connection connection, PreparedStatement preparedStatement) {
 		closeDbResources(connection, preparedStatement, null);
 	}
 
-	public static void closeDbResources(Connection connection, PreparedStatement preparedStatement,
-			ResultSet resultSet) {
+	public void closeDbResources(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet) {
 		closeResultSet(resultSet);
 		closeStatement(preparedStatement);
 		closeConnection(connection);
 	}
 
-	public static void closeConnection(Connection connection) {
+	public void closeConnection(Connection connection) {
 		if (connection != null) {
 			try {
 				connection.close();
@@ -72,7 +77,7 @@ public class ConnectionManager {
 		}
 	}
 
-	public static void closeStatement(Statement statement) {
+	public void closeStatement(Statement statement) {
 		try {
 			if (statement != null) {
 				statement.close();
@@ -82,7 +87,7 @@ public class ConnectionManager {
 		}
 	}
 
-	public static void closeResultSet(ResultSet resultSet) {
+	public void closeResultSet(ResultSet resultSet) {
 		try {
 			if (resultSet != null) {
 				resultSet.close();

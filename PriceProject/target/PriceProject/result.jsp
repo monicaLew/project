@@ -21,8 +21,6 @@
 	</form>
 	<br>
 	<br>
-	<form action="index.jsp" method="post">
-		<input type="submit" value="Back to Menu" />
-	</form>
+	<a href="mainMenu.jsp">Back To Main Page(menu)</a>
 </body>
 </html>

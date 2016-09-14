@@ -11,6 +11,9 @@
     c:\Marusia\Soft\apache-tomcat-8.0.36\webapps\data\         
      </param-value>
 	</context-param>
+	<welcome-file-list>
+	<welcome-file>IndexServlet</welcome-file>
+	</welcome-file-list>
 	<servlet>
 		<servlet-name>UploadServlet</servlet-name>
 		<servlet-class>com.pctrade.price.servlet.UploadServlet</servlet-class>
@@ -35,13 +38,6 @@
 		<display-name>WriteCsvInEmptyDb</display-name>
 		<servlet-name>WriteCsvInEmptyDb</servlet-name>
 		<servlet-class>com.pctrade.price.servlet.WriteCsvInEmptyDb</servlet-class>
-	</servlet>
-	<servlet>
-		<description>
-  	</description>
-		<display-name>ConvertCsvToXlsx</display-name>
-		<servlet-name>ConvertCsvToXlsx</servlet-name>
-		<servlet-class>com.pctrade.price.servlet.ConvertCsvToXlsx</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -88,11 +84,24 @@
 	<servlet>
 		<description>
 		</description>
-		<display-name>er</display-name>
-		<servlet-name>er</servlet-name>
-		<servlet-class>com.pctrade.price.servlet.er</servlet-class>
+		<display-name>IndexServlet</display-name>
+		<servlet-name>IndexServlet</servlet-name>
+		<servlet-class>com.pctrade.price.servlet.IndexServlet</servlet-class>
 	</servlet>
-
+	<servlet>
+		<description>
+		</description>
+		<display-name>ShowCars</display-name>
+		<servlet-name>ShowCars</servlet-name>
+		<servlet-class>com.pctrade.price.servlet.ShowCars</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Myseeeervlet</display-name>
+		<servlet-name>Myseeeervlet</servlet-name>
+		<servlet-class>com.pctrade.price.servlet.Myseeeervlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>UploadServlet</servlet-name>
 		<url-pattern>/UploadServlet</url-pattern>
@@ -108,10 +117,6 @@
 	<servlet-mapping>
 		<servlet-name>WriteCsvInEmptyDb</servlet-name>
 		<url-pattern>/WriteCsvInEmptyDb</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>ConvertCsvToXlsx</servlet-name>
-		<url-pattern>/ConvertCsvToXlsx</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>SaveFileInfo</servlet-name>
@@ -138,7 +143,15 @@
 		<url-pattern>/ReadOutputFromDbExcel</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>er</servlet-name>
-		<url-pattern>/er</url-pattern>
+		<servlet-name>IndexServlet</servlet-name>
+		<url-pattern>/IndexServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ShowCars</servlet-name>
+		<url-pattern>/ShowCars</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Myseeeervlet</servlet-name>
+		<url-pattern>/Myseeeervlet</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -15,7 +15,9 @@ import com.pctrade.price.utils.HttpUtils;
 
 public class SaveFileInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String ENCODING_TYPE = "UTF-8";
 	private static final String FORWARD_NAME = "/lastUploadFile.jsp";
+	private static final String ERROR_NAME = "/errorPage";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -25,15 +27,18 @@ public class SaveFileInfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		response.setContentType("text/html");
-		response.setCharacterEncoding("UTF-8");
+		HttpUtils.Encode(request, response, ENCODING_TYPE);
+		HttpSession session = request.getSession();			
 
 		DaoUploadedFile daoUploadedFile = new DaoUploadedFileImpl();
 		UploadedFile uploadedFile = (UploadedFile) session.getAttribute("uploadedFileInfo");
 
-		daoUploadedFile.createUploadedFileInfo(uploadedFile);
+		try {
+			daoUploadedFile.createUploadedFileInfo(uploadedFile);
+		} catch (IllegalAccessException e) {
+			session.setAttribute("exception", e);
+			HttpUtils.forward(ERROR_NAME, request, response);
+		}
 
 		HttpUtils.forward(FORWARD_NAME, request, response);
 	}
