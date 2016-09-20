@@ -30,8 +30,8 @@ public class UpdateCSV extends HttpServlet {
 					+ session.getAttribute("lastFileNameUpload");
 
 			DaoProduct daoProductImpl = new DaoProductImpl();
-			daoProductImpl.updateProductTable(ReadCsv.readCsvFillProduct(filePath, date));
-
+			daoProductImpl.updateProductTable(ReadCsv.readCsvFillProduct(filePath, date));			
+						
 		} catch (Exception e) {
 			session.setAttribute("exception", e);
 			HttpUtils.forward(ERROR_NAME, request, response);

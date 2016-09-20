@@ -1,8 +1,12 @@
 package com.pctrade.price.servlet;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,101 +16,60 @@ import javax.servlet.http.HttpSession;
 
 import com.pctrade.price.dao.DaoCar;
 import com.pctrade.price.dao.DaoCarImpl;
-import com.pctrade.price.entity.Car;
-import com.pctrade.price.parser.HtmlParser;
+import com.pctrade.price.dao.DaoException;
+import com.pctrade.price.provider.CarModelProvider;
 import com.pctrade.price.utils.HttpUtils;
 import com.pctrade.price.validation.FormValidator;
 
 public class ScanCarPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String urlBase = "http://www.abw.by/allpublic/sell/";
-
-	public static final String FROM_TEXT_ERROR_CODE = "idFrom.text.error";
-	public static final String FROM_NEGATIVE_ERROR_CODE = "idFrom.negative.error";
-	public static final String TILL_TEXT_ERROR_CODE = "idTill.text.error";
-	public static final String TILL_NEGATIVE_ERROR_CODE = "idTill.negative.error";
-	public static final String FROM_LESS_ERROR_CODE = "idFrom.less.error";
-	public static final String TILL_BIGGER_ERROR_CODE = "idTill.bigger.error";
-
-	private static final String FROM_NEGATIVE_ERROR_TEXT = "ID 'From' must be greater than 0";
-	private static final String TILL_NEGATIVE_ERROR_TEXT = "ID 'Till' must be greater than 0";
-	private static final String FROM_TEXT_ERROR_TEXT = "Please input correct value";
-	private static final String TILL_TEXT_ERROR_TEXT = "Please input correct value";
-	private static final String FROM_LESS_ERROR_TEXT = "ID 'From' must be less than 'Till'";
-	private static final String TILL_BIGGER_ERROR_TEXT = "ID 'Till' must be bigger than 'From'";
 
 	private static final String SUCCESS_VIEW_NAME = "/scanStatistics.jsp";
 	private static final String INPUT_VIEW_NAME = "mainMenu.jsp";
 	private static final String ERROR_NAME = "/errorPage.jsp";
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		HttpUtils.forward(SUCCESS_VIEW_NAME, request, response);
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-		if (!validate(request)) {
+		if (!FormValidator.validate(request)) {
 			HttpUtils.redirect(INPUT_VIEW_NAME, response);
 			return;
 		}
 		Integer idFrom = HttpUtils.getIntParam(request, "idFrom");
 		Integer idTill = HttpUtils.getIntParam(request, "idTill");
+		Integer poolCapacity = HttpUtils.getIntParam(request, "poolCapacity");
+		Queue<Integer> urls = new ConcurrentLinkedQueue<Integer>();
+		for (int id = idFrom; id <= idTill; id++) {
+			urls.add(id);
+		}
 
 		DaoCar daoCar = new DaoCarImpl();
 		try {
 			daoCar.clearTable();
-		} catch (IllegalAccessException e1) {
+		} catch (DaoException ex) {
+			session.setAttribute("exception", ex);
 			HttpUtils.forward(ERROR_NAME, request, response);
 		}
-		for(int id = idFrom; id <= idTill; id++){
-			Car car;
-			try {
-				car = HtmlParser.extractCarInfo(urlBase, id);				
-			} catch (Exception e) {
-				car = Car.createCar(e, id);				
-			}						
-			try {
-				daoCar.createCar(car);
-			} catch (IllegalAccessException e) {
-				session.setAttribute("exception", e);
-				HttpUtils.forward(ERROR_NAME, request, response);
-			}
-		}
-		HttpUtils.forward(SUCCESS_VIEW_NAME, request, response);				
-	}
 
-	private boolean validate(HttpServletRequest request) {
-		Map<String, String> errorMap = new HashMap<String, String>();
-
-		if (HttpUtils.isIntNull(request, "idFrom")) {
-			errorMap.put(FROM_TEXT_ERROR_CODE, FROM_TEXT_ERROR_TEXT);
-		} else {
-			if (HttpUtils.isNegativeInt(request, "idFrom")) {
-				errorMap.put(FROM_NEGATIVE_ERROR_CODE, FROM_NEGATIVE_ERROR_TEXT);
-			}
+		ExecutorService pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(poolCapacity);
+		long start = System.currentTimeMillis();
+		for (int id = idFrom; id <= idTill; id++) {
+			Runnable worker = new CarModelProvider(urls, session, request, response);
+			pool.execute(worker);
 		}
-
-		if (HttpUtils.isIntNull(request, "idTill")) {
-			errorMap.put(TILL_TEXT_ERROR_CODE, TILL_TEXT_ERROR_TEXT);
-		} else {
-			if (HttpUtils.isNegativeInt(request, "idTill")) {
-				errorMap.put(TILL_NEGATIVE_ERROR_CODE, TILL_NEGATIVE_ERROR_TEXT);
-			}
+		pool.shutdown();
+		boolean b = false;
+		try {
+			b = pool.awaitTermination(1, TimeUnit.MINUTES);
+		} catch (InterruptedException e) {
+			session.setAttribute("exception", e);
+			HttpUtils.forward(ERROR_NAME, request, response);
 		}
-
-		if (HttpUtils.isFromBiggerThanTill(request, "idFrom", "idTill")) {
-			errorMap.put(FROM_LESS_ERROR_CODE, FROM_LESS_ERROR_TEXT);
-			errorMap.put(TILL_BIGGER_ERROR_CODE, TILL_BIGGER_ERROR_TEXT);
+		long end = System.currentTimeMillis();
+		System.out.println(end - start);
+		if (b) {
+			HttpUtils.forward(SUCCESS_VIEW_NAME, request, response);
 		}
-
-		if (!errorMap.isEmpty()) {
-			HttpSession session = request.getSession();
-			session.setAttribute(FormValidator.FORM_ERRORS_MAP, errorMap);
-			return false;
-		}
-		return true;
 	}
 }

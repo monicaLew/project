@@ -6,6 +6,7 @@ com\pctrade\price\servlet\WriteCsvInEmptyDb.class
 com\pctrade\price\dao\DaoCar.class
 com\pctrade\price\servlet\UploadServlet.class
 com\pctrade\price\dao\DaoProduct.class
+com\pctrade\price\provider\CarModelProvider.class
 com\pctrade\price\parser\HtmlParser.class
 com\pctrade\price\utils\HttpUtils.class
 com\pctrade\price\servlet\SaveFileInfo.class
@@ -14,6 +15,7 @@ com\pctrade\price\servlet\ScanCarPage.class
 com\pctrade\price\dao\DaoCarImpl.class
 com\pctrade\price\mysql\ConnectionManager$HolderManager.class
 com\pctrade\price\entity\UploadedFile.class
+com\pctrade\price\servlet\ShowProducts.class
 com\pctrade\price\tags\ErrorTag.class
 com\pctrade\price\entity\Product.class
 com\pctrade\price\servlet\ReadOutputFromDbCsv.class

@@ -1,7 +1,6 @@
 package com.pctrade.price.entity;
 
 import java.net.SocketTimeoutException;
-
 import org.jsoup.HttpStatusException;
 
 public class Car {
@@ -74,41 +73,40 @@ public class Car {
 	public String toString() {
 		return "Car [id=" + id + ", pageCode=" + pageCode + ", article=" + article + ", priceByn=" + priceByn
 				+ ", priceEuro=" + priceEuro + ", year=" + year + ", status=" + status + "]";
-	}	
-	
-	public static Car createCar(Exception ex, Integer pageId){
+	}
+
+	public static Car createCar(Exception ex, Integer pageId) {
 		Car car = new Car();
-		
-		if(ex instanceof HttpStatusException){
+
+		if (ex instanceof SocketTimeoutException) {
 			car.setPageCode(pageId);
 			car.setArticle(null);
 			car.setPriceByn(0.0);
 			car.setPriceEuro(0);
 			car.setYear(0);
-			car.setStatus("PAGE_NOT_EXIST");			
-		}else if(ex instanceof SocketTimeoutException){
+			car.setStatus("NOT_DOWNLOAD_SOME_INET_PROBLEM");
+		} else if (ex instanceof HttpStatusException) {
 			car.setPageCode(pageId);
 			car.setArticle(null);
 			car.setPriceByn(0.0);
 			car.setPriceEuro(0);
 			car.setYear(0);
-			car.setStatus("NOT_DOWNLOAD_SOME_INET_PROBLEM");			
-		}else if(ex instanceof NumberFormatException){
-			car.setPageCode(pageId);
-			car.setArticle(null);
-			car.setPriceByn(0.0);
-			car.setPriceEuro(0);
-			car.setYear(0);
-			car.setStatus("PAGE_NOT_VALID");
-		}else if(ex instanceof NullPointerException){
+			car.setStatus("PAGE_NOT_EXIST");
+		} else if (ex instanceof NumberFormatException) {
 			car.setPageCode(pageId);
 			car.setArticle(null);
 			car.setPriceByn(0.0);
 			car.setPriceEuro(0);
 			car.setYear(0);
 			car.setStatus("PAGE_NOT_VALID");
-		}		
+		} else if (ex instanceof NullPointerException) {
+			car.setPageCode(pageId);
+			car.setArticle(null);
+			car.setPriceByn(0.0);
+			car.setPriceEuro(0);
+			car.setYear(0);
+			car.setStatus("PAGE_NOT_VALID");
+		}
 		return car;
 	}
-	
 }

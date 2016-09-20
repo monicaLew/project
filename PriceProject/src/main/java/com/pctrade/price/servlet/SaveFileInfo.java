@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.pctrade.price.dao.DaoException;
 import com.pctrade.price.dao.DaoUploadedFile;
 import com.pctrade.price.dao.DaoUploadedFileImpl;
 import com.pctrade.price.entity.UploadedFile;
@@ -35,7 +36,7 @@ public class SaveFileInfo extends HttpServlet {
 
 		try {
 			daoUploadedFile.createUploadedFileInfo(uploadedFile);
-		} catch (IllegalAccessException e) {
+		} catch (DaoException e) {
 			session.setAttribute("exception", e);
 			HttpUtils.forward(ERROR_NAME, request, response);
 		}

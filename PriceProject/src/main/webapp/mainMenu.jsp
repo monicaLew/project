@@ -4,11 +4,14 @@
 <%@page import="java.util.Map"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="validation" uri="http://belhard.com/validation"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ -->
 <title>File Uploading Form</title>
+<link rel="stylesheet" href="mainMenu.css" type="text/css">
 </head>
 <body>
 	<h3>File Upload:</h3>
@@ -59,12 +62,31 @@
 				<span style="color: red;">${fieldErrorText}</span>
 			</validation:fieldError>
 		</p>
+		<br />
+		<p>
+			<b>Pool Capacity:</b><br> <input type="text" name="poolCapacity"
+				size="40" />
+			<validation:fieldError errorCode="idTill.negative.error">
+				&emsp;
+				<span style="color: red;">${fieldErrorText}</span>
+			</validation:fieldError>
+
+			<validation:fieldError errorCode="idTill.bigger.error">
+				&emsp;
+				<span style="color: red;">${fieldErrorText}</span>
+			</validation:fieldError>
+
+			<validation:fieldError errorCode="idTill.text.error">
+				&emsp;
+				<span style="color: red;">${fieldErrorText}</span>
+			</validation:fieldError>
+		</p>
 		<br /> <input type="submit" value="ScanningPages" />
 	</form>
-	
-	<form action="Myseeeervlet?param1=value1" method="POST"> 
-   <input type="text" name="param1" value="value2" /> 
-   <input type="submit" value="value3" /> 
-</form> 
+	<br />
+	<form action="Myseeeervlet?param1=value1&param1=value3" method="POST">
+		<input type="text" name="param1" value="value2" /> <input
+			type="submit" value="value3" />
+	</form>
 </body>
 </html>

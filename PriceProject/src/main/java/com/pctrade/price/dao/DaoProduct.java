@@ -6,25 +6,25 @@ import com.pctrade.price.entity.Product;
 
 public interface DaoProduct {
 
-	public List<Product> showAllProductList() throws IllegalAccessException;
+	public List<Product> showAllProductList() throws DaoException;
 
-	Product showProductById(Integer productId) throws IllegalAccessException; // -
+	Product showProductById(Integer productId) throws DaoException; // -
 
-	void createProduct(Product product) throws IllegalAccessException; // - +
+	void createProduct(Product product) throws DaoException; // - +
 
-	void updateProduct(Product product) throws IllegalAccessException; // - +
+	void updateProduct(Product product) throws DaoException; // - +
 
-	void deleteProduct(Integer productId) throws IllegalAccessException; // -
+	void deleteProduct(Integer productId) throws DaoException; // -
 
-	void setNotAvailableStatusForAll() throws IllegalAccessException; // - +
+	void setNotAvailableStatusForAll() throws DaoException; // - +
 
-	void createProductTable(List<Product> products) throws IllegalAccessException;
+	void createProductTable(List<Product> products) throws DaoException;
 
-	void updateProductTable(List<Product> products) throws IllegalAccessException;
+	void updateProductTable(List<Product> products) throws DaoException;
 
-	int countProductWithArticleCode(Product product) throws IllegalAccessException; // -
+	int countProductWithArticleCode(Product product) throws DaoException; // -
 																					// +
 
-	void clearTable() throws IllegalAccessException; // - +
+	void clearTable() throws DaoException; // - +
 
 }

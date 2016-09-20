@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.pctrade.price.dao.DaoException;
 import com.pctrade.price.dao.DaoProduct;
 import com.pctrade.price.dao.DaoProductImpl;
 import com.pctrade.price.entity.Product;
@@ -59,7 +60,7 @@ public class ReadOutputFromDbCsv extends HttpServlet {
 			writer2.write(product.toString() + System.getProperty("line.separator"));
 		}		
 		writer2.close();
-		} catch (IllegalAccessException e) {
+		} catch (DaoException e) {
 			session.setAttribute("exception", e);
 			HttpUtils.forward(ERROR_NAME, request, response);
 		}

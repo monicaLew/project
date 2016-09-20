@@ -7,7 +7,7 @@
 <title>Update Result Page</title>
 </head>
 <body>
-	<h2>Table in DB has Updated</h2>
+	<h2>If You Want to Download new Price</h2>
 	<br>
 	<br>
 	<form action="ReadOutputFromDbExcel" method="post"
@@ -20,7 +20,9 @@
 		<input type="submit" value="Download new Price CSV Format" />
 	</form>
 	<br>
+	<a href="ShowProducts">SHOW Products</a>
 	<br>
-	<a href="mainMenu.jsp">Back To Main Page(menu)</a>
+	<br>
+	<a href="mainMenu.jsp">Back To Main Menu</a>
 </body>
 </html>

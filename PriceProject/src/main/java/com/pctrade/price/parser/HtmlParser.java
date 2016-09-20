@@ -7,8 +7,9 @@ import org.jsoup.select.Elements;
 import com.pctrade.price.entity.Car;
 
 public class HtmlParser {
-
-	public static Car extractCarInfo(String urlBase, Integer idPage) throws Exception {
+	private static final String urlBase = "http://www.abw.by/allpublic/sell/";
+	
+	public static Car extractCarInfo(Integer idPage) throws Exception {
 		Car car = new Car();
 
 		StringBuilder s = new StringBuilder(urlBase);
@@ -19,9 +20,9 @@ public class HtmlParser {
 		Elements divWithCarCost = doc.select("span.cost-eur");
 		String carCostEuroS = divWithCarCost.last().text().replaceAll(" ", "");
 		Integer carCostEuro = Integer.parseInt(carCostEuroS.replaceAll("€", ""));
-		Elements divWithCarCostByr = doc.select("span.cost-byr");
+		Elements divWithCarCostByr = doc.select("span.cost-byrn");
 		String carCostByr = divWithCarCostByr.last().text().replaceAll(" ", "");
-		Double carCostBy = Double.parseDouble(carCostByr.replaceAll("р.", ""));
+		Double carCostBy = Double.parseDouble(carCostByr.replaceAll("руб.", ""));
 
 		Elements divStrong = doc.select("strong");
 		String annonceId = divStrong.first().text().replaceAll("\u00a0", "").trim();

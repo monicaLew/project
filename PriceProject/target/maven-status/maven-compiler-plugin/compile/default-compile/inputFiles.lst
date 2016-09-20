@@ -9,8 +9,10 @@ C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\readers\ReadExce
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\servlet\UpdateExcel.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\dao\DaoProduct.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\dao\DaoException.java
+C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\provider\CarModelProvider.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\servlet\WriteCsvInEmptyDb.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\mysql\ConnectionManager.java
+C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\servlet\ShowProducts.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\entity\Product.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\servlet\SaveFileInfo.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\servlet\ReadOutputFromDbCsv.java

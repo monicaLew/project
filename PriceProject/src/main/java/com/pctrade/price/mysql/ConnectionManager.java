@@ -14,47 +14,54 @@ import com.pctrade.price.utils.ConfigUtils;
 
 public class ConnectionManager {
 
+//	private DataSource dataSource;
 	private String dbDriver;
 	private String dbUrl;
 	private String dbUser;
 	private String dbPassword;
-
+	
 	private static class HolderManager {
 		private final static ConnectionManager connectionManager = new ConnectionManager();
-	}
-
+	}	
+	
 	private ConnectionManager() {
-		Properties dbProperties = ConfigUtils.loadDbProperties();
-		dbDriver = dbProperties.getProperty("mysql.db_driver");
-		dbUrl = dbProperties.getProperty("mysql.db_url");
-		dbUser = dbProperties.getProperty("mysql.db_user");
-		dbPassword = dbProperties.getProperty("mysql.db_password");
+		Properties properties = ConfigUtils.loadDbProperties();
+		dbDriver = properties.getProperty("mysql.db_driver");
+		dbUrl = properties.getProperty("mysql.db_url");
+		dbUser = properties.getProperty("mysql.db_user");
+		dbPassword = properties.getProperty("mysql.db_password");		
 		try {
 			Class.forName(dbDriver);
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
 	}
+//	private ConnectionManager() {
+//		try {
+//			Context initContext = new InitialContext();
+//			Context rootContext = (Context) initContext.lookup("java:comp/env");
+//			dataSource = (DataSource) rootContext.lookup("jdbc/pc_trade_mysql");
+//		} catch (NamingException e) {
+//			throw new RuntimeException("Some errors occurred during DataSource lookup!", e);
+//		}
+//	}
 
 	public static ConnectionManager getManager() {
 		return HolderManager.connectionManager;
 	}
-
+		
 	private List<Connection> connectionList = new ArrayList<Connection>();
 
-	public Connection getConnection() {
+	public Connection getConnection() {		
 		if (connectionList.isEmpty()) {
 			try {
+//				return dataSource.getConnection();
 				return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
 			} catch (SQLException e) {
 				throw new RuntimeException(e);
 			}
 		}
 		return connectionList.remove(0);
-	}
-
-	public void close(Connection connection) {
-		connectionList.add(connection);
 	}
 
 	public void closeDbResources(Connection connection, PreparedStatement preparedStatement) {

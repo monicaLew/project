@@ -21,7 +21,7 @@ public class DaoProductImpl implements DaoProduct {
 	private static final String DELETE_PRODUCT_BY_ID = "DELETE `ID`, `ARTICLE_CODE`, `ARTICLE`, `PRICE`, `UPLOAD_DATE`, `STATUS` FROM PRODUCT WHERE ID =?";
 	private static final String DELETE = "DELETE FROM PRODUCT";
 
-	public List<Product> showAllProductList() throws IllegalAccessException {
+	public List<Product> showAllProductList() throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -44,7 +44,7 @@ public class DaoProductImpl implements DaoProduct {
 				productList.add(product);
 			}
 		} catch (SQLException e) {
-			throw new IllegalAccessException();
+			throw new DaoException(e.getMessage());
 
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement, resultSet);
@@ -52,7 +52,7 @@ public class DaoProductImpl implements DaoProduct {
 		return productList;
 	}
 
-	public Product showProductById(Integer productId) throws IllegalAccessException {
+	public Product showProductById(Integer productId) throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -71,14 +71,14 @@ public class DaoProductImpl implements DaoProduct {
 				product.setStatus(resultSet.getString("STATUS"));
 			}
 		} catch (SQLException e) {
-			throw new IllegalAccessException();
+			throw new DaoException(e.getMessage());
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement, resultSet);
 		}
 		return product;
 	}
 
-	public void createProduct(Product product) throws IllegalAccessException {
+	public void createProduct(Product product) throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -91,13 +91,13 @@ public class DaoProductImpl implements DaoProduct {
 			preparedStatement.setString(4, product.getDate());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new IllegalAccessException();
+			throw new DaoException(e.getMessage());
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement);
 		}
 	}
 
-	public void updateProduct(Product product) throws IllegalAccessException {
+	public void updateProduct(Product product) throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -111,14 +111,13 @@ public class DaoProductImpl implements DaoProduct {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-
-			throw new IllegalAccessException();
+			throw new DaoException(e.getMessage());
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement);
 		}
 	}
 
-	public void deleteProduct(Integer productId) throws IllegalAccessException {
+	public void deleteProduct(Integer productId) throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -127,13 +126,13 @@ public class DaoProductImpl implements DaoProduct {
 			preparedStatement.setInt(1, productId);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new IllegalAccessException();
+			throw new DaoException(e.getMessage());
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement);
 		}
 	}
 
-	public void setNotAvailableStatusForAll() throws IllegalAccessException {
+	public void setNotAvailableStatusForAll() throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -141,13 +140,13 @@ public class DaoProductImpl implements DaoProduct {
 			preparedStatement = connection.prepareStatement(UPDATE_PRODUCT_SET_NOTAVAILABLE);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new IllegalAccessException();
+			throw new DaoException(e.getMessage());
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement);
 		}
 	}
 
-	public void updateProductTable(List<Product> products) throws IllegalAccessException {
+	public void updateProductTable(List<Product> products) throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -187,15 +186,15 @@ public class DaoProductImpl implements DaoProduct {
 			try {
 				connection.rollback();
 			} catch (SQLException ex) {
-				throw new IllegalAccessException();
+				throw new DaoException(e.getMessage());
 			}
-			throw new DaoException(e);
+			throw new DaoException(e.getMessage());
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement, resultSet);
 		}
 	}
 
-	public void createProductTable(List<Product> products) throws IllegalAccessException {
+	public void createProductTable(List<Product> products) throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -221,15 +220,15 @@ public class DaoProductImpl implements DaoProduct {
 			try {
 				connection.rollback();
 			} catch (SQLException ex) {
-				throw new DaoException(ex);
+				throw new DaoException(e.getMessage());
 			}
-			throw new IllegalAccessException();
+			throw new DaoException(e.getMessage());
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement);
 		}
 	}
 
-	public int countProductWithArticleCode(Product product) throws IllegalAccessException {
+	public int countProductWithArticleCode(Product product) throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -244,14 +243,14 @@ public class DaoProductImpl implements DaoProduct {
 				count = resultSet.getInt(1);
 			}
 		} catch (SQLException e) {
-			throw new IllegalAccessException();
+			throw new DaoException(e.getMessage());
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement, resultSet);
 		}
 		return count;
 	}
 
-	public void clearTable() throws IllegalAccessException {
+	public void clearTable() throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -259,7 +258,7 @@ public class DaoProductImpl implements DaoProduct {
 			preparedStatement = connection.prepareStatement(DELETE);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new IllegalAccessException();
+			throw new DaoException(e.getMessage());
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement);
 		}

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
@@ -12,7 +11,7 @@
      </param-value>
 	</context-param>
 	<welcome-file-list>
-	<welcome-file>IndexServlet</welcome-file>
+		<welcome-file>IndexServlet</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>UploadServlet</servlet-name>
@@ -24,13 +23,6 @@
 		<display-name>WriteExcelInEmptyDb</display-name>
 		<servlet-name>WriteExcelInEmptyDb</servlet-name>
 		<servlet-class>com.pctrade.price.servlet.WriteExcelInEmptyDb</servlet-class>
-	</servlet>
-	<servlet>
-		<description>
-  	</description>
-		<display-name>DBconnect</display-name>
-		<servlet-name>DBconnect</servlet-name>
-		<servlet-class>com.pctrade.price.servlet.DBconnect</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -102,6 +94,13 @@
 		<servlet-name>Myseeeervlet</servlet-name>
 		<servlet-class>com.pctrade.price.servlet.Myseeeervlet</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ShowProducts</display-name>
+		<servlet-name>ShowProducts</servlet-name>
+		<servlet-class>com.pctrade.price.servlet.ShowProducts</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>UploadServlet</servlet-name>
 		<url-pattern>/UploadServlet</url-pattern>
@@ -109,10 +108,6 @@
 	<servlet-mapping>
 		<servlet-name>WriteExcelInEmptyDb</servlet-name>
 		<url-pattern>/WriteExcelInEmptyDb</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>DBconnect</servlet-name>
-		<url-pattern>/DBconnect</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>WriteCsvInEmptyDb</servlet-name>
@@ -144,7 +139,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>IndexServlet</servlet-name>
-		<url-pattern>/IndexServlet</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ShowCars</servlet-name>
@@ -154,4 +149,12 @@
 		<servlet-name>Myseeeervlet</servlet-name>
 		<url-pattern>/Myseeeervlet</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ShowProducts</servlet-name>
+		<url-pattern>/ShowProducts</url-pattern>
+	</servlet-mapping>
+	<resource-ref>
+		<description>This section describes link to the DataSource JNDI resource</description>
+		<res-ref-name>jdbc/pc_trade_mysql</res-ref-name>
+	</resource-ref>
 </web-app>

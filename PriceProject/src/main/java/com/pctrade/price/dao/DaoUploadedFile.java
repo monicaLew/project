@@ -6,14 +6,14 @@ import com.pctrade.price.entity.UploadedFile;
 
 public interface DaoUploadedFile {
 
-	List<UploadedFile> showAllUploadedFileInfoList() throws IllegalAccessException;
+	List<UploadedFile> showAllUploadedFileInfoList() throws DaoException;
 
-	UploadedFile showUploadedFileInfoById(Integer uploadedFiletId) throws IllegalAccessException;
+	UploadedFile showUploadedFileInfoById(Integer uploadedFiletId) throws DaoException;
 
-	void createUploadedFileInfo(UploadedFile file) throws IllegalAccessException;  //+
+	void createUploadedFileInfo(UploadedFile file) throws DaoException;  //+
 
-	void deleteUploadedFileInfo(Integer uploadedFiletId) throws IllegalAccessException;
+	void deleteUploadedFileInfo(Integer uploadedFiletId) throws DaoException;
 
-	void clearTable() throws IllegalAccessException;
+	void clearTable() throws DaoException;
 
 }

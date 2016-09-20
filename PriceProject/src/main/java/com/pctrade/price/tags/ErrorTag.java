@@ -31,6 +31,7 @@ public class ErrorTag extends BodyTagSupport {
 		return SKIP_BODY;
 	}
 	
+	
 	public void setErrorCode(String errorCode) {
 		this.errorCode = errorCode;
 	}

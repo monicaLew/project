@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.pctrade.price.dao.DaoCar;
 import com.pctrade.price.dao.DaoCarImpl;
+import com.pctrade.price.dao.DaoException;
 import com.pctrade.price.entity.Car;
 import com.pctrade.price.utils.HttpUtils;
 
@@ -28,7 +29,7 @@ public class ShowCars extends HttpServlet {
 		List<Car> carList = new ArrayList<Car>();
 		try {
 			carList = daoCar.showCarsByStatus();
-		} catch (IllegalAccessException e) {
+		} catch (DaoException e) {
 			session.setAttribute("exception", e);
 			HttpUtils.forward(ERROR_NAME, request, response);
 		}

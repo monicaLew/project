@@ -6,14 +6,14 @@ import com.pctrade.price.entity.Car;
 
 public interface DaoCar {
 
-	List<Car> showAllCarsList() throws IllegalAccessException;
+	List<Car> showAllCarsList() throws DaoException;
 
-	List<Car> showCarsByStatus() throws IllegalAccessException;
+	List<Car> showCarsByStatus() throws DaoException;
 
-	void createCar(Car car) throws IllegalAccessException;
+	void createCar(Car car) throws DaoException;
 
-	void deleteCar(Integer carId) throws IllegalAccessException; //-
+	void deleteCar(Integer carId) throws DaoException; //-
 
-	void clearTable() throws IllegalAccessException;
+	void clearTable() throws DaoException;
 
 }

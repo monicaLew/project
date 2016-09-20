@@ -15,9 +15,10 @@ import com.pctrade.price.utils.HttpUtils;
 
 public class UpdateExcel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String ENCODING_TYPE = "UTF-8";	
-	private static final String ERROR_NAME = "/errorPage.jsp";
+	private static final String ENCODING_TYPE = "UTF-8";
 	private static final String FORWARD_NAME = "/result.jsp";
+	private static final String ERROR_NAME = "/errorPage.jsp";
+	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -26,20 +27,20 @@ public class UpdateExcel extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpUtils.Encode(request, response, ENCODING_TYPE);		
-		HttpSession session = request.getSession();
+		HttpUtils.Encode(request, response, ENCODING_TYPE);				
+		HttpSession session = request.getSession();		
 		try {
 			String date = (String) session.getAttribute("dateOfUpload");
 			String filePath = getServletContext().getInitParameter("file-upload")
 					+ session.getAttribute("lastFileNameUpload");
 
-			DaoProduct daoProductImpl = new DaoProductImpl();
-			daoProductImpl.updateProductTable(ReadExcel.readExcelFillProduct(filePath, date));
+			DaoProduct daoProductImpl = new DaoProductImpl();			
+			daoProductImpl.updateProductTable(ReadExcel.readExcelFillProduct(filePath, date));			
 
 		} catch (Exception e) {
 			session.setAttribute("exception", e);
 			HttpUtils.forward(ERROR_NAME, request, response);
-		}
+		}		
 		HttpUtils.forward(FORWARD_NAME, request, response);		
 	}
 }

@@ -18,7 +18,7 @@ public class DaoCarImpl implements DaoCar {
 	private static final String DELETE = "DELETE FROM CAR";
 	private static final String DELETE_CAR_BY_ID = "DELETE FROM CAR WHERE ID =?";
 
-	public List<Car> showAllCarsList() throws IllegalAccessException {
+	public List<Car> showAllCarsList() throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -40,14 +40,14 @@ public class DaoCarImpl implements DaoCar {
 				carList.add(car);
 			}
 		} catch (SQLException e) {
-			throw new IllegalAccessException();
+			throw new DaoException(e.getMessage());
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement, resultSet);
 		}
 		return carList;
 	}
 
-	public List<Car> showCarsByStatus() throws IllegalAccessException {
+	public List<Car> showCarsByStatus() throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -69,14 +69,14 @@ public class DaoCarImpl implements DaoCar {
 				availableCarList.add(car);
 			}
 		} catch (SQLException e) {
-			throw new IllegalAccessException();
+			throw new DaoException(e.getMessage());
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement, resultSet);
 		}
 		return availableCarList;
 	}
 
-	public void createCar(Car car) throws IllegalAccessException {
+	public void createCar(Car car) throws DaoException {		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -91,13 +91,13 @@ public class DaoCarImpl implements DaoCar {
 			preparedStatement.setString(6, car.getStatus());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new IllegalAccessException();
+			throw new DaoException(e.getMessage());
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement);
 		}
 	}
 
-	public void deleteCar(Integer carId) throws IllegalAccessException {      
+	public void deleteCar(Integer carId) throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -106,13 +106,13 @@ public class DaoCarImpl implements DaoCar {
 			preparedStatement.setInt(1, carId);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new IllegalAccessException();
+			throw new DaoException(e.getMessage());
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement);
 		}
 	}
 
-	public void clearTable() throws IllegalAccessException {
+	public void clearTable() throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -120,7 +120,7 @@ public class DaoCarImpl implements DaoCar {
 			preparedStatement = connection.prepareStatement(DELETE);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new IllegalAccessException();
+			throw new DaoException(e.getMessage());
 		} finally {
 			ConnectionManager.getManager().closeDbResources(connection, preparedStatement);
 		}

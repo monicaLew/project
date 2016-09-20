@@ -19,7 +19,7 @@
 	</c:forEach>
 	<br>
 	<br>
-	<br>	
+	<br>
 	<a href="mainMenu.jsp">Back To Main Page(menu)</a>
 </body>
 </html>

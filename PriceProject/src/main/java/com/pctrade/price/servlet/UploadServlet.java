@@ -30,7 +30,7 @@ public class UploadServlet extends HttpServlet {
 	private File file;
 
 	public void init() {
-		filePath = getServletContext().getInitParameter("file-upload");
+		filePath = getServletContext().getInitParameter("file-upload");		
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

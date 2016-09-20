@@ -17,6 +17,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
+import com.pctrade.price.dao.DaoException;
 import com.pctrade.price.dao.DaoProduct;
 import com.pctrade.price.dao.DaoProductImpl;
 import com.pctrade.price.entity.Product;
@@ -70,7 +71,7 @@ public class ReadOutputFromDbExcel extends HttpServlet {
 		}
 		workBook.write(response.getOutputStream());		
 	
-	} catch (IllegalAccessException e) {
+	} catch (DaoException e) {
 		session.setAttribute("exception", e);
 		HttpUtils.forward(ERROR_NAME, request, response);
 	}
