@@ -8,7 +8,11 @@
 <title>Cars</title>
 </head>
 <body>
-	<h3>CARs in Base</h3>
+	<h2>CARs in Base</h2>
+	<br> ${doneMessage}
+	<br>
+	<br> ${numberOfPages} &nbsp;
+	<c:out value="Pages Scanned"></c:out>
 	<br>
 	<c:out value="In Base"></c:out>
 	&nbsp; ${numberOfCars} &nbsp;
@@ -21,5 +25,6 @@
 	<br>
 	<br>
 	<a href="mainMenu.jsp">Back To Main Page(menu)</a>
+	<br>
 </body>
 </html>

@@ -15,7 +15,8 @@ public class HtmlParser {
 		StringBuilder s = new StringBuilder(urlBase);
 		s.append(idPage);
 		String url = s.toString();
-		Document doc = Jsoup.connect(url).get();
+		//Document doc = Jsoup.connect(url).get();
+		Document doc = Jsoup.connect(url).timeout(1000).get();
 
 		Elements divWithCarCost = doc.select("span.cost-eur");
 		String carCostEuroS = divWithCarCost.last().text().replaceAll(" ", "");

@@ -8,9 +8,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ -->
 <title>File Uploading Form</title>
-<link rel="stylesheet" href="src/main/webapp/mainMenu.css" />
+<link rel="stylesheet" href="mainMenu.css" type="text/css">
 </head>
 <body>
 	<h3>File Upload:</h3>
@@ -82,7 +83,7 @@
 		</p>
 		<br /> <input type="submit" value="ScanningPages" />
 	</form>
-
+	<br />
 	<form action="Myseeeervlet?param1=value1&param1=value3" method="POST">
 		<input type="text" name="param1" value="value2" /> <input
 			type="submit" value="value3" />

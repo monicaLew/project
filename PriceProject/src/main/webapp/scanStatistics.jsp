@@ -4,12 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Pages Successfully Scanned</title>
+<title>Pages Scanned</title>
 </head>
 <body>
-	<p>Pages With Cars Successfully Scanned</p>
 	<br>
+	<p>Statistic: There are &ensp; ${quantityOfExecuteThread}
+		&ensp;Threads still executing</p>
 	<br>
-	<a href="ShowCars">SHOW CARS</a>
+	<a href="inputCars.jsp">SHOW current state in CAR base</a>
+	<br>
+	<a href="mainMenu.jsp">Back To Main Page(menu)</a>
+	<br>
 </body>
 </html>

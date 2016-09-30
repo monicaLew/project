@@ -53,5 +53,4 @@ public class UploadedFile {
 		return "UploadedFile [id=" + id + ", fileName=" + fileName + ", sizeKb=" + sizeKb + ", uploadDate=" + uploadDate
 				+ ", updated=" + updated + "]";
 	}
-
 }

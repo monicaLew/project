@@ -105,7 +105,14 @@ public class Car {
 			car.setPriceByn(0.0);
 			car.setPriceEuro(0);
 			car.setYear(0);
-			car.setStatus("PAGE_NOT_VALID");
+			car.setStatus("PAGE_NOT_VALID_NPE");
+		} else if (ex instanceof StringIndexOutOfBoundsException) {
+			car.setPageCode(pageId);
+			car.setArticle(null);
+			car.setPriceByn(0.0);
+			car.setPriceEuro(0);
+			car.setYear(0);
+			car.setStatus("PAGE_NOT_VALID_SIE");
 		}
 		return car;
 	}

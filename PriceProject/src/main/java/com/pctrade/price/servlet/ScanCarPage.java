@@ -5,8 +5,6 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,12 +17,12 @@ import com.pctrade.price.dao.DaoCarImpl;
 import com.pctrade.price.dao.DaoException;
 import com.pctrade.price.provider.CarModelProvider;
 import com.pctrade.price.utils.HttpUtils;
+import com.pctrade.price.utils.UrlReconnections;
 import com.pctrade.price.validation.FormValidator;
 
 public class ScanCarPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final String SUCCESS_VIEW_NAME = "/scanStatistics.jsp";
 	private static final String INPUT_VIEW_NAME = "mainMenu.jsp";
 	private static final String ERROR_NAME = "/errorPage.jsp";
 
@@ -39,9 +37,12 @@ public class ScanCarPage extends HttpServlet {
 		Integer idFrom = HttpUtils.getIntParam(request, "idFrom");
 		Integer idTill = HttpUtils.getIntParam(request, "idTill");
 		Integer poolCapacity = HttpUtils.getIntParam(request, "poolCapacity");
-		Queue<Integer> urls = new ConcurrentLinkedQueue<Integer>();
+
+		Queue<UrlReconnections> urls = new ConcurrentLinkedQueue<UrlReconnections>();
 		for (int id = idFrom; id <= idTill; id++) {
-			urls.add(id);
+			UrlReconnections urlReconnections = new UrlReconnections();
+			urlReconnections.fill(id);
+			urls.add(urlReconnections);
 		}
 
 		DaoCar daoCar = new DaoCarImpl();
@@ -52,24 +53,12 @@ public class ScanCarPage extends HttpServlet {
 			HttpUtils.forward(ERROR_NAME, request, response);
 		}
 
-		ExecutorService pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(poolCapacity);
-		long start = System.currentTimeMillis();
+		ExecutorService pool = Executors.newFixedThreadPool(poolCapacity);
 		for (int id = idFrom; id <= idTill; id++) {
-			Runnable worker = new CarModelProvider(urls, session, request, response);
+			Runnable worker = new CarModelProvider(urls);
 			pool.execute(worker);
 		}
 		pool.shutdown();
-		boolean b = false;
-		try {
-			b = pool.awaitTermination(1, TimeUnit.MINUTES);
-		} catch (InterruptedException e) {
-			session.setAttribute("exception", e);
-			HttpUtils.forward(ERROR_NAME, request, response);
-		}
-		long end = System.currentTimeMillis();
-		System.out.println(end - start);
-		if (b) {
-			HttpUtils.forward(SUCCESS_VIEW_NAME, request, response);
-		}
+		HttpUtils.forward(INPUT_VIEW_NAME, request, response);
 	}
 }

@@ -15,17 +15,17 @@ import com.pctrade.price.utils.ConfigUtils;
 public class ConnectionManager {
 
 //	private DataSource dataSource;
-	private String dbDriver;
-	private String dbUrl;
-	private String dbUser;
-	private String dbPassword;
+	private final String dbDriver;
+	private final String dbUrl;
+	private final String dbUser;
+	private final String dbPassword;
 	
 	private static class HolderManager {
 		private final static ConnectionManager connectionManager = new ConnectionManager();
 	}	
 	
-	private ConnectionManager() {
-		Properties properties = ConfigUtils.loadDbProperties();
+	private ConnectionManager() {	
+		Properties properties = ConfigUtils.getInstance().getPropertiesValues();	
 		dbDriver = properties.getProperty("mysql.db_driver");
 		dbUrl = properties.getProperty("mysql.db_url");
 		dbUser = properties.getProperty("mysql.db_user");
