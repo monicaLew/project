@@ -19,7 +19,7 @@ import com.pctrade.price.utils.HttpUtils;
 import com.pctrade.price.utils.ThreadSetUtils;
 import com.pctrade.price.utils.UrlReconnections;
 
-public class ShowInProcessState extends HttpServlet {
+public class ShowInProcessStatistics extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String INPUT_VIEW_NAME = "mainMenu.jsp";
 	private static final String SUCCESS_VIEW_NAME = "showCars/processCars.jsp";
@@ -43,6 +43,7 @@ public class ShowInProcessState extends HttpServlet {
 				HttpUtils.forward(INPUT_VIEW_NAME, request, response);
 			} else {
 				session.setAttribute("quantityOfExecuteThread", ThreadSetUtils.getInst().size());
+				session.setAttribute("totalPages", urlsSize);
 				HttpUtils.forward(SUCCESS_VIEW_NAME, request, response);
 			}
 		} catch (DaoException e) {

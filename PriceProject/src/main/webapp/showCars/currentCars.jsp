@@ -10,7 +10,6 @@
 <body>
 	<h2>CARs in Base</h2>
 	<br>
-	<br> ${numberOfPages} &nbsp;
 	<c:out value="Process running"></c:out>
 	<br>
 	<c:out value="Current State: In Base"></c:out>

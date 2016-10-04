@@ -20,7 +20,7 @@
 </style>
 </head>
 <body>
-	<form class="top" action="ShowInProcessState" method="get">
+	<form class="top" action="ShowInProcessStatistics" method="get">
 		<input type="submit" value="Process Statistic" />
 	</form>
 	<form class="top" action="ShowCurrentState" method="get">

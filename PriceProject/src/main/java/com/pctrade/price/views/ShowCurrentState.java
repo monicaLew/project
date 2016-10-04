@@ -37,7 +37,6 @@ public class ShowCurrentState extends HttpServlet {
 		try {
 			carList = daoCar.showCarsByStatus();
 			carListAll = daoCar.showAllCarsList();
-			session.setAttribute("numberOfPages", carListAll.size());
 			session.setAttribute("carList", carList);
 			session.setAttribute("numberOfCars", carList.size());
 

@@ -22,7 +22,6 @@ public class ShowFinishState extends HttpServlet {
 	private static final String SUCCESS_VIEW_NAME = "showCars/finishCars.jsp";
 	private static final String INPUT_VIEW_NAME = "mainMenu.jsp";
 	private static final String ERROR_NAME_DAO = "errorPages/errorDao.jsp";
-	// private static final String ERROR_NAME = "errorPages/errorPageCar.jsp";
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

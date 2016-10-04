@@ -118,9 +118,9 @@
 	<servlet>
 		<description>
 		</description>
-		<display-name>ShowInProcessState</display-name>
-		<servlet-name>ShowInProcessState</servlet-name>
-		<servlet-class>com.pctrade.price.views.ShowInProcessState</servlet-class>
+		<display-name>ShowInProcessStatistics</display-name>
+		<servlet-name>ShowInProcessStatistics</servlet-name>
+		<servlet-class>com.pctrade.price.views.ShowInProcessStatistics</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>UploadServlet</servlet-name>
@@ -179,8 +179,8 @@
 		<url-pattern>/ShowFinishState</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ShowInProcessState</servlet-name>
-		<url-pattern>/ShowInProcessState</url-pattern>
+		<servlet-name>ShowInProcessStatistics</servlet-name>
+		<url-pattern>/ShowInProcessStatistics</url-pattern>
 	</servlet-mapping>
 	<resource-ref>
 		<description>This section describes link to the DataSource JNDI resource</description>
