@@ -101,6 +101,27 @@
 		<servlet-name>ShowProducts</servlet-name>
 		<servlet-class>com.pctrade.price.servlet.ShowProducts</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ShowCurrentState</display-name>
+		<servlet-name>ShowCurrentState</servlet-name>
+		<servlet-class>com.pctrade.price.views.ShowCurrentState</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ShowFinishState</display-name>
+		<servlet-name>ShowFinishState</servlet-name>
+		<servlet-class>com.pctrade.price.views.ShowFinishState</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ShowInProcessState</display-name>
+		<servlet-name>ShowInProcessState</servlet-name>
+		<servlet-class>com.pctrade.price.views.ShowInProcessState</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>UploadServlet</servlet-name>
 		<url-pattern>/UploadServlet</url-pattern>
@@ -146,12 +167,20 @@
 		<url-pattern>/ShowCars</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Myseeeervlet</servlet-name>
-		<url-pattern>/Myseeeervlet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
 		<servlet-name>ShowProducts</servlet-name>
 		<url-pattern>/ShowProducts</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ShowCurrentState</servlet-name>
+		<url-pattern>/ShowCurrentState</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ShowFinishState</servlet-name>
+		<url-pattern>/ShowFinishState</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ShowInProcessState</servlet-name>
+		<url-pattern>/ShowInProcessState</url-pattern>
 	</servlet-mapping>
 	<resource-ref>
 		<description>This section describes link to the DataSource JNDI resource</description>

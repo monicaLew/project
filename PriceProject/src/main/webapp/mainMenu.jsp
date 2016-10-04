@@ -20,14 +20,14 @@
 </style>
 </head>
 <body>
-	<form class="top" action="inputCars.jsp" method="get">
-		<input type="submit" value="				" />
-	</form>
-	<form class="top" action="ShowCars" method="get">
+	<form class="top" action="ShowInProcessState" method="get">
 		<input type="submit" value="Process Statistic" />
 	</form>
-	<form class="top" action="inputCars.jsp" method="get">
-		<input type="submit" value="				" />
+	<form class="top" action="ShowCurrentState" method="get">
+		<input type="submit" value="Current Cars View" />
+	</form>
+	<form class="top" action="ShowFinishState" method="get">
+		<input type="submit" value="Finish Cars View" />
 	</form>
 	<br>
 	<br>

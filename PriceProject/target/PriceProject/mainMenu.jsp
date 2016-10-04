@@ -12,19 +12,39 @@
  -->
 <title>File Uploading Form</title>
 <link rel="stylesheet" href="mainMenu.css" type="text/css">
+<style type="text/css">
+.top {
+	width: 200px;
+	display: inline-block;
+}
+</style>
 </head>
 <body>
+	<form class="top" action="inputCars.jsp" method="get">
+		<input type="submit" value="				" />
+	</form>
+	<form class="top" action="ShowCars" method="post">
+		<input type="submit" value="Process Statistic" />
+	</form>
+	<form class="top" action="inputCars.jsp" method="get">
+		<input type="submit" value="				" />
+	</form>
+	<br>
+	<br>
+	<br>
+	<br>
 	<h3>File Upload:</h3>
 	Select a file to upload:
-	<br />
-	<br />
+	<br>
+	<br>
 	<form action="UploadServlet" method="post"
 		enctype="multipart/form-data">
-		<input type="file" name="file" size="50" /> <br /> <br /> <input
+		<input type="file" name="file" size="50" /> <br> <br> <input
 			type="submit" value="Upload File" />
 	</form>
-	<br />
-	<br />
+	<br>
+	<br>
+	<br>
 	<form action="ScanCarPage" method="post">
 		<p>
 			<b>ID from:</b><br> <input type="text" name="idFrom" size="40" />
@@ -44,7 +64,7 @@
 				<span style="color: red;">${fieldErrorText}</span>
 			</validation:fieldError>
 		</p>
-		<br />
+		<br>
 		<p>
 			<b>ID till:</b><br> <input type="text" name="idTill" size="40" />
 			<validation:fieldError errorCode="idTill.negative.error">
@@ -62,7 +82,7 @@
 				<span style="color: red;">${fieldErrorText}</span>
 			</validation:fieldError>
 		</p>
-		<br />
+		<br>
 		<p>
 			<b>Pool Capacity:</b><br> <input type="text" name="poolCapacity"
 				size="40" />
@@ -81,12 +101,8 @@
 				<span style="color: red;">${fieldErrorText}</span>
 			</validation:fieldError>
 		</p>
-		<br /> <input type="submit" value="ScanningPages" />
+		<br> <input type="submit" value="ScanningPages" />
 	</form>
-	<br />
-	<form action="Myseeeervlet?param1=value1&param1=value3" method="POST">
-		<input type="text" name="param1" value="value2" /> <input
-			type="submit" value="value3" />
-	</form>
+	<br>
 </body>
 </html>

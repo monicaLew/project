@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,12 +7,13 @@
 <title>Pages Scanned</title>
 </head>
 <body>
-	<p>Pages With Cars Scanned</p>
-	<br> &nbsp; ${numberOfPages} &nbsp;
 	<br>
-	<c:out value="Page Scanned"></c:out>
+	<p>Statistic: There are &ensp; ${quantityOfExecuteThread}
+		&ensp;Threads still executing</p>
 	<br>
+	<a href="inputCars.jsp">SHOW current state in CAR base</a>
 	<br>
-	<a href="ShowCars">SHOW CARS</a>
+	<a href="mainMenu.jsp">Back To Main Page(menu)</a>
+	<br>
 </body>
 </html>

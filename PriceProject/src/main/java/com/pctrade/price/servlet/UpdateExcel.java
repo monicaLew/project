@@ -17,7 +17,7 @@ public class UpdateExcel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ENCODING_TYPE = "UTF-8";
 	private static final String FORWARD_NAME = "/result.jsp";
-	private static final String ERROR_NAME = "/errorPage.jsp";
+	private static final String ERROR_NAME = "/errorPages/errorPage.jsp";
 	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

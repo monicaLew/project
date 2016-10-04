@@ -1,3 +1,4 @@
+com\pctrade\price\utils\ThreadSetUtils.class
 com\pctrade\price\entity\Car.class
 com\pctrade\price\servlet\WriteExcelInEmptyDb.class
 com\pctrade\price\utils\ConfigUtils.class
@@ -16,6 +17,7 @@ com\pctrade\price\dao\DaoCarImpl.class
 com\pctrade\price\mysql\ConnectionManager$HolderManager.class
 com\pctrade\price\entity\UploadedFile.class
 com\pctrade\price\servlet\ShowProducts.class
+com\pctrade\price\utils\UrlReconnections.class
 com\pctrade\price\tags\ErrorTag.class
 com\pctrade\price\entity\Product.class
 com\pctrade\price\servlet\ReadOutputFromDbCsv.class
@@ -30,5 +32,4 @@ com\pctrade\price\validation\FormValidator.class
 com\pctrade\price\dao\DaoProductImpl.class
 com\pctrade\price\servlet\UpdateExcel.class
 com\pctrade\price\servlet\IndexServlet.class
-com\pctrade\price\servlet\Myseeeervlet.class
 com\pctrade\price\dao\DaoUploadedFile.class

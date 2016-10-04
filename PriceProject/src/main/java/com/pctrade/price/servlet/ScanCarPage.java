@@ -22,9 +22,8 @@ import com.pctrade.price.validation.FormValidator;
 
 public class ScanCarPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	private static final String INPUT_VIEW_NAME = "mainMenu.jsp";
-	private static final String ERROR_NAME = "/errorPage.jsp";
+	private static final String ERROR_NAME_DAO = "errorPages/errorDao.jsp";
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -44,13 +43,13 @@ public class ScanCarPage extends HttpServlet {
 			urlReconnections.fill(id);
 			urls.add(urlReconnections);
 		}
-
+		session.setAttribute("urls", urls);
 		DaoCar daoCar = new DaoCarImpl();
 		try {
 			daoCar.clearTable();
 		} catch (DaoException ex) {
 			session.setAttribute("exception", ex);
-			HttpUtils.forward(ERROR_NAME, request, response);
+			HttpUtils.forward(ERROR_NAME_DAO, request, response);
 		}
 
 		ExecutorService pool = Executors.newFixedThreadPool(poolCapacity);

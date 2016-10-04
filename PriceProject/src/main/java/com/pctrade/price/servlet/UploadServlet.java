@@ -22,7 +22,7 @@ public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ENCODING_TYPE = "UTF-8";
 	private static final String CONTENT_TYPE = "text/html";
-	private static final String ERROR_NAME = "/errorPage.jsp";
+	private static final String ERROR_NAME = "/errorPages/errorPage.jsp";
 	private static final String FORWARD_NAME = "/lastUploadFile.jsp";
 
 	private boolean isMultipart;

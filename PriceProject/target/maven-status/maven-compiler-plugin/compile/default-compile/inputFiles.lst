@@ -17,12 +17,13 @@ C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\entity\Product.j
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\servlet\SaveFileInfo.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\servlet\ReadOutputFromDbCsv.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\servlet\UploadServlet.java
+C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\utils\ThreadSetUtils.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\utils\HttpUtils.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\tags\ErrorTag.java
+C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\utils\UrlReconnections.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\dao\DaoProductImpl.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\dao\DaoUploadedFileImpl.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\entity\Car.java
-C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\servlet\Myseeeervlet.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\entity\UploadedFile.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\dao\DaoCarImpl.java
 C:\Marusia\Project\PriceProject\src\main\java\com\pctrade\price\servlet\WriteExcelInEmptyDb.java

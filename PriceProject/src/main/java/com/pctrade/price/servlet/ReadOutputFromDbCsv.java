@@ -21,7 +21,7 @@ import com.pctrade.price.utils.HttpUtils;
 public class ReadOutputFromDbCsv extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ENCODING_TYPE = "UTF-8";
-	private static final String ERROR_NAME = "/errorPage.jsp";
+	private static final String ERROR_NAME_DAO = "/errorPages/errorDao.jsp";
 	private static final String CONTENT_TYPE = "application/octet-stream";	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -62,7 +62,7 @@ public class ReadOutputFromDbCsv extends HttpServlet {
 		writer2.close();
 		} catch (DaoException e) {
 			session.setAttribute("exception", e);
-			HttpUtils.forward(ERROR_NAME, request, response);
+			HttpUtils.forward(ERROR_NAME_DAO, request, response);
 		}
 		// HttpUtils.forward(FORWARD_NAME, request, response);
 	}
